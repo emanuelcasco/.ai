@@ -1,0 +1,128 @@
+workflow:
+  id: execute-implementation-plan
+  name: Execute Implementation Plan
+  description: >-
+    Multi-stage workflow for executing an existing implementation plan document.
+    The developer retrieves and implements phases sequentially with architect review.
+  instructions: >-
+    This workflow executes an existing implementation plan provided by reference/link.
+    Execute phases sequentially, await user confirmation after each stage unless specified otherwise.
+    The developer must understand the scope before implementation begins.
+
+phases:
+  - phase: 1
+    name: Plan Analysis & Understanding
+    description: Retrieve and analyze the implementation plan document to understand the scope
+    steps:
+      - step: 1
+        name: Retrieve Implementation Plan
+        agent: dev
+        description: Fetch and read the implementation plan document from the provided link/reference.
+        action: Retrieve the implementation plan document and parse its content to understand the structure, phases, and steps defined.
+        optional: false
+        input_artifacts: [ImplementationPlanReference]
+        output_artifacts: [ImplementationPlanDocument]
+        user_confirmation: false
+
+      - step: 2
+        name: Scope Understanding & Verbalization
+        agent: dev
+        description: Analyze and verbalize what needs to be implemented based on the plan.
+        action: Review the implementation plan phases and steps, understand the scope of changes, and clearly articulate what will be implemented.
+        optional: false
+        input_artifacts: [ImplementationPlanDocument]
+        output_artifacts: [ScopeUnderstanding]
+        user_confirmation: true
+        confirmation_message: "Developer must verbalize understanding and get user confirmation before proceeding"
+
+  - phase: 2
+    name: Sequential Phase Implementation
+    description: Implement each phase from the plan one by one, step by step
+    steps:
+      - step: 3
+        name: Phase-by-Phase Implementation
+        agent: dev
+        description: Iterate through each phase of the implementation plan, implementing all steps within each phase before moving to the next.
+        action: For each phase in the implementation plan, implement all defined steps sequentially. Complete entire phase before advancing to next phase.
+        optional: false
+        input_artifacts: [ImplementationPlanDocument, ScopeUnderstanding]
+        output_artifacts: [PhaseImplementations]
+        user_confirmation: true
+        confirmation_message: "Await user confirmation after completing each phase before proceeding to next phase"
+        iteration_pattern: "phase_by_phase"
+
+  - phase: 3
+    name: Technical Review Cycle
+    description: Architect reviews all implemented changes and provides feedback
+    steps:
+      - step: 4
+        name: Technical Review
+        agent: architect
+        description: Comprehensive technical review of all changes made during implementation.
+        action: Review all code changes, architecture decisions, and implementation quality against the original plan requirements.
+        optional: false
+        input_artifacts: [PhaseImplementations, ImplementationPlanDocument]
+        output_artifacts: [TechnicalReviewFeedback]
+        user_confirmation: false
+
+      - step: 5
+        name: Address Review Feedback
+        agent: dev
+        description: Implement modifications requested by architect (if any).
+        action: Address all technical review feedback and implement requested changes.
+        optional: true
+        input_artifacts: [TechnicalReviewFeedback, PhaseImplementations]
+        output_artifacts: [RevisedImplementation]
+        user_confirmation: false
+        conditional: "Execute only if TechnicalReviewFeedback contains modification requests"
+        on_completion:
+          next_step: 4
+          condition: "Repeat review cycle until architect approval"
+
+  - phase: 4
+    name: Finalization & Integration
+    description: Commit changes, create merge request, and notify team
+    steps:
+      - step: 6
+        name: Commit and Push Changes
+        agent: dev
+        description: Commit all approved changes and push to repository.
+        action: Create meaningful commit messages, commit all changes, and push to remote repository.
+        optional: false
+        input_artifacts: [RevisedImplementation]
+        output_artifacts: [CommittedChanges]
+        user_confirmation: false
+        prerequisite: "Architect approval required"
+
+      - step: 7
+        name: Create Merge Request
+        agent: dev
+        description: Create merge request using the standard template.
+        action: Create merge request with proper template, linking to implementation plan and including summary of changes.
+        optional: false
+        input_artifacts: [CommittedChanges, ImplementationPlanDocument]
+        output_artifacts: [MergeRequestURL]
+        user_confirmation: false
+        external_actions:
+          - action: "Use Merge Request Template for standardized MR creation"
+
+      - step: 8
+        name: Team Notification
+        agent: dev
+        description: Send notification to "tech-code-reviews" Slack channel.
+        action: Post merge request link to "tech-code-reviews" Slack channel for team review with a brief description of the changes.
+        optional: false
+        input_artifacts: [MergeRequestURL]
+        output_artifacts: [TeamNotification]
+        user_confirmation: false
+        external_actions:
+          - action: "Send notification to 'tech-code-reviews' Slack channel with MR link and a brief description of the changes"
+
+workflow_end:
+  notes: "Implementation plan execution completed. Changes committed, MR created, and team notified."
+  success_criteria: 
+    - "All phases from implementation plan successfully implemented"
+    - "Architect approval obtained"
+    - "Changes committed and pushed"
+    - "Merge request created with template"
+    - "Team notification sent to Slack"

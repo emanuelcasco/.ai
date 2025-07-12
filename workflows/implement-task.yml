@@ -1,0 +1,118 @@
+workflow:
+  id: implement
+  name: Implement Task
+  description: >-
+    Agent workflow for implementing tasks, stories, or issues.
+    This workflow guides an agent through task analysis, planning, implementation,
+    iterative review, and final integration.
+  instructions: >-
+    This workflow must be executed sequentially. On each phase, assume the personality of the persona that is defined for the step. The output_artifacts of a step
+    serve as the input_artifacts for subsequent steps. Adhere strictly to the
+    actions and descriptions for each step, and perform external actions when triggered.
+
+phases:
+  - phase: 1
+    name: Definition & Planning
+    description: Analyze the request, define clear requirements, and create a technical plan.
+    steps:
+      - step: 1
+        name: Task Intake & Structuring
+        agent: analyst
+        description: Parse the initial request and elicit any missing information from the user.
+        action: Analyze the provided task from text, file, or API and gather all necessary context.
+        optional: false
+        input_artifacts: [InitialRequest]
+        output_artifacts: [StructuredTask]
+
+      - step: 2
+        name: Story Refinement & Definition of Done
+        agent: po
+        description: Refine the task into a story with clear, testable acceptance criteria.
+        action: Review the StructuredTask, write AcceptanceCriteria, and establish the Definition of Done.
+        optional: false
+        input_artifacts: [StructuredTask]
+        output_artifacts: [RefinedStory]
+        external_actions:
+          - action: "Update the issue description in the external issue manager (e.g., Jira, Linear) with the content of the RefinedStory artifact."
+
+      - step: 3
+        name: Technical Design & Implementation Plan
+        agent: architect
+        description: Review feasibility and create a technical plan for implementation.
+        action: Analyze the RefinedStory, identify files to change, define new components, and outline implementation steps.
+        optional: false
+        input_artifacts: [RefinedStory]
+        output_artifacts: [ImplementationPlan]
+        external_actions:
+          - action: "If the ImplementationPlan is complex, write it down in a dedicated document within the /docs folder."
+
+  - phase: 2
+    name: Implementation & Review Cycle
+    description: Write code, get it reviewed, and address feedback in an iterative loop.
+    steps:
+      - step: 4
+        name: Branch Creation
+        agent: dev
+        description: Create a new feature branch for the work.
+        action: Create a new git branch from the main/develop branch, named according to convention (e.g., feature/TICKET-123-description) from the master branch. If there is already a develop branch for the feature, use that. If you are in another branch, first go back to master and create a new branch from there.
+        optional: false
+        input_artifacts: [RefinedStory]
+        output_artifacts: [BranchName]
+
+      - step: 5
+        name: Implementation & Self-Validation
+        agent: dev
+        description: Implement code changes and run local tests to meet acceptance criteria.
+        action: Write and modify application code, create unit/integration tests, and validate the changes against the AcceptanceCriteria.
+        optional: false
+        input_artifacts: [ImplementationPlan, RefinedStory, BranchName]
+        output_artifacts: [CodeChanges, TestResults]
+
+      - step: 6
+        name: Code Commit & Push
+        agent: dev
+        description: Commit the changes to the feature branch and push to the remote repository.
+        action: Commit the CodeChanges using conventional commit messages and push the branch to the remote.
+        optional: false
+        input_artifacts: [CodeChanges, BranchName]
+        output_artifacts: [PushedCommit]
+
+      - step: 7
+        name: Merge Request Creation
+        agent: dev
+        description: Create a Merge Request (or Pull Request) for review.
+        action: Create an MR, linking it to the RefinedStory, and assign reviewers.
+        optional: false
+        input_artifacts: [PushedCommit, RefinedStory]
+        output_artifacts: [MergeRequestURL]
+        external_actions:
+          - action: "Use the platform's UI or CLI to create the Merge Request (Pull Request)."
+
+      - step: 8
+        name: Automated & Peer Review
+        agent: architect
+        description: Review the code for quality, correctness, and adherence to standards.
+        action: Execute a code review on the Merge Request. CI tools run automated checks in parallel.
+        optional: false
+        input_artifacts: [MergeRequestURL]
+        output_artifacts: [ReviewFeedback]
+        external_actions:
+          - action: "Use the platform's UI to review the code, add comments, and approve the Merge Request."
+        on_failure:
+          next_step: 9
+        on_success:
+          next_step: 10
+
+      - step: 9
+        name: Address Review Feedback
+        agent: dev
+        description: If review feedback was provided, implement the requested changes.
+        action: Modify the code to address all comments from the ReviewFeedback.
+        optional: true # This step only runs if there is feedback.
+        input_artifacts: [ReviewFeedback, BranchName]
+        output_artifacts: [UpdatedCodeChanges]
+        on_success:
+          next_step: 5
+
+workflow_end:
+  notes: "Task implementation is complete and integrated."
