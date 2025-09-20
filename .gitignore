@@ -2,5 +2,6 @@
 
 # AI
 .ai/
-data/
+data/*
+!data/.keep
 
