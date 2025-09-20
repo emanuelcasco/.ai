@@ -8,82 +8,75 @@ templates:
 
 ## Purpose
 
-Generate a document containing an implementation plan for a provided story or task (it could be created locally or provided from a issue manager).
+Generate implementation plans for stories/tasks using structured phases that preserve system stability.
 
 ## Workflow
 
-### 0. Generate a new implementation plan document
+### 0. Create Plan Document
 
-Create a new file using the @~/.ai/templates/implementation-plan.tmp.md template. Follow these rules:
+Create file using @~/.ai/templates/implementation-plan.tmp.md:
 
-- Name convention: `yyyymmddhhmmdd_{{name_in_snake_case}}.md`.
-- Keep the name under 50 characters (summarize it if necessary).
-- Create the file in the folder `/spec` of the project or domain you are working on, if not sure ask the user for details.
+- **Naming**: `yyyymmddhhmmdd_{{name_in_snake_case}}.md` (≤50 chars)
+- **Location**: `/spec` folder in project/domain (ask user if uncertain)
 
-### 1. Identify Main Goal
+### 1. Define Main Goal
 
-- What are we implementing? Why are we doing this?
-- Try to explain the goal of the story in a few sentences.
+- Identify implementation target and purpose
+- Explain goal in 2-3 sentences
 
-### 2. Identify Secondary Goals
+### 2. Define Secondary Goals
 
-- Try to split the task into smaller tasks, max 5 or 6 milestones, that once completed will achieve the main goal.
-- Try to explain the secondary goals in one sentence max.
+- Split into not more than 5-6 milestones achieving main goal
+- Single sentence per milestone
 
-### 3. Prepate Plan by Steps
+### 3. Create Phase Plan
 
-- Use the milestones defined in the Secondary Goals to create a plan by **Phases**.
-- For each **Phase** must try to complete a single task, a minor change that accomplish a single little goal (like updating the interfaces for your new changes, or implementing the persitance layer for a feature).
-- The idea is that each **Phase** is a self-contained iteration that does not put the system in a broken state.
-- Split each phase into "Steps" that are the actual phase to be completed.
-- Each phase behaves like a instruction you will provide to a pair-programming partner to instruct him what to do. Use a meta-programming language like:
-  ````plain
-  - Step {{n}}: {{step_name}}
-    - ADD | MODIFY | DELETE | RENAME | MOVE | COPY | OTHER {{file}} action description:
-      [[LLM: if necessary add code snippet]]
-      ```typescript
-      // your code snippet
-      ```
-  ````
-- The most details you include in the plan the better, you focus on WHAT you want the person implementing the change to do, not HOW.
+- Map milestones to self-contained **Phases**
+- Each phase completes single task without breaking system
+- Break phases into actionable **Steps** using meta-programming syntax:
+
+```plain
+- [ ] Step {{n}}: {{step_name}}
+  - ADD | MODIFY | DELETE | RENAME | MOVE | COPY | OTHER {{file}} action description:
+    ```diff
+    // git diff block
+    ```
+```
 
 ### 4. Content Generation
 
-- **Incremental Mode**: Present each major section for review before proceeding
-- **YOLO Mode**: Generate all sections, then review complete document with user
-- Apply any elicitation protocols specified in template
-- Incorporate user feedback and iterate as needed
+- **Incremental Mode**: Present sections for review before proceeding
+- **YOLO Mode**: Generate complete document, then review
+- Apply template elicitation protocols
+- Incorporate user feedback iteratively
 
-### 6. Validation
+### 5. Validation
 
-If template specifies a checklist:
+Run template checklist against completed document:
+- Document completion status per item
+- Address deficiencies
+- Present validation summary
 
-- Run the appropriate checklist against completed document
-- Document completion status for each item
-- Address any deficiencies found
-- Present validation summary to user
-
-### 7. Final Presentation
+### 6. Final Presentation
 
 - Present clean, formatted content only
-- Ensure all sections are complete
-- DO NOT truncate or summarize content
-- Begin directly with document content (no preamble)
-- Include any handoff prompts specified in template
+- Complete sections without truncation
+- Begin with document content (no preamble)
+- Include template handoff prompts
 
 ## Instructions
 
-- Template markup is for AI processing only - never expose to users
+- Template markup for AI processing only—never expose to users
 
 ## Success Criteria
 
-- [ ] **Main Goal**: Clear 2-3 sentence explanation of what and why
-- [ ] **Secondary Goals**: 5-6 milestones with single-sentence descriptions
-- [ ] **Context**: Sufficient background for understanding implementation
-- [ ] **Phases**: Each secondary goal maps to self-contained, non-breaking phase
-- [ ] **Steps**: Use action verbs (ADD/MODIFY/DELETE), specify target files, include code snippets where helpful
-- [ ] **WHAT not HOW**: Steps describe what to implement, not implementation details
-- [ ] **Template Format**: Follows implementation-plan.tmp.md structure with proper markdown
-- [ ] **Clean Output**: No [[LLM:]] markup, no preamble, complete content, date stamped
-- [ ] **Success Criteria**: Clear, measurable completion outcomes defined
-- [ ] **Pair Programming Ready**: Instructions clear enough for development partner
+- [ ] **Main Goal**: Clear 2-3 sentence what/why explanation
+- [ ] **Secondary Goals**: 5-6 single-sentence milestones
+- [ ] **Context**: Sufficient implementation background
+- [ ] **Phases**: Each goal maps to self-contained, non-breaking phase
+- [ ] **Steps**: Action verbs (ADD/MODIFY/DELETE), target files, code snippets
+- [ ] **WHAT not HOW**: Describe implementation targets, not methods
+- [ ] **Template Format**: Follows implementation-plan.tmp.md structure
+- [ ] **Clean Output**: No [[LLM:]] markup, no preamble, complete content, timestamped
+- [ ] **Success Criteria**: Clear, measurable completion outcomes
+- [ ] **Pair Programming Ready**: Clear instructions for development partner
