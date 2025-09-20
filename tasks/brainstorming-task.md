@@ -6,238 +6,88 @@ mode: think harder
 
 ## Purpose
 
-This task provides a comprehensive toolkit of creative brainstorming techniques for ideation and innovative thinking. The analyst can use these techniques to facilitate productive brainstorming sessions with users.
+Comprehensive toolkit of creative brainstorming techniques for ideation and innovative thinking.
 
 ## Workflow
 
-### 1. Session Setup
+### 1. Setup
+[[LLM: Understand context/goals. Ask questions to determine best approach.]]
 
-[[LLM: Begin by understanding the brainstorming context and goals. Ask clarifying questions if needed to determine the best approach.]]
+**Context:** Problem space, constraints, goals (divergent vs focused)
+**Approach:** User selects | Analyst recommends | Random | Progressive flow
 
-1. **Establish Context**
+### 2. Techniques
 
-   - Understand the problem space or opportunity area
-   - Identify any constraints or parameters
-   - Determine session goals (divergent exploration vs. focused ideation)
+#### Creative Expansion
+1. **"What If" Scenarios** [[LLM: Generate provocative questions challenging assumptions]]
+   • Unlimited resources? • Problem didn't exist? • Child's perspective? • 24-hour deadline?
 
-2. **Select Technique Approach**
-   - Option A: User selects specific techniques
-   - Option B: Analyst recommends techniques based on context
-   - Option C: Random technique selection for creative variety
-   - Option D: Progressive technique flow (start broad, narrow down)
+2. **Analogical Thinking** [[LLM: Draw parallels to other domains/industries/nature]]
+   • "Like [X] but for [Y]?" • Biomimicry • Cross-industry patterns • Historical precedents
 
-### 2. Core Brainstorming Techniques
+3. **Reversal/Inversion** [[LLM: Flip problem/approach for new insights]]
+   • Exact opposite? • Make worse then reverse • End-to-start • Reverse roles
 
-#### Creative Expansion Techniques
+4. **First Principles** [[LLM: Break to fundamentals, rebuild from scratch]]
+   • Core fundamentals? • Challenge assumptions? • Start from zero? • Natural laws?
 
-1. **"What If" Scenarios**
-   [[LLM: Generate provocative what-if questions that challenge assumptions and expand thinking beyond current limitations.]]
+#### Structured Frameworks
+5. **SCAMPER** [[LLM: Guide systematically through each prompt]]
+   • S=Substitute • C=Combine • A=Adapt • M=Modify • P=Other uses • E=Eliminate • R=Reverse
 
-   - What if we had unlimited resources?
-   - What if this problem didn't exist?
-   - What if we approached this from a child's perspective?
-   - What if we had to solve this in 24 hours?
+6. **Six Thinking Hats** [[LLM: Cycle through thinking modes with focused time]]
+   • White=Facts • Red=Emotions • Black=Caution • Yellow=Benefits • Green=Creativity • Blue=Process
 
-2. **Analogical Thinking**
-   [[LLM: Help user draw parallels between their challenge and other domains, industries, or natural systems.]]
-
-   - "How might this work like [X] but for [Y]?"
-   - Nature-inspired solutions (biomimicry)
-   - Cross-industry pattern matching
-   - Historical precedent analysis
-
-3. **Reversal/Inversion**
-   [[LLM: Flip the problem or approach it from the opposite angle to reveal new insights.]]
-
-   - What if we did the exact opposite?
-   - How could we make this problem worse? (then reverse)
-   - Start from the end goal and work backward
-   - Reverse roles or perspectives
-
-4. **First Principles Thinking**
-   [[LLM: Break down to fundamental truths and rebuild from scratch.]]
-   - What are the absolute fundamentals here?
-   - What assumptions can we challenge?
-   - If we started from zero, what would we build?
-   - What laws of physics/economics/human nature apply?
-
-#### Structured Ideation Frameworks
-
-5. **SCAMPER Method**
-   [[LLM: Guide through each SCAMPER prompt systematically.]]
-
-   - **S** = Substitute: What can be substituted?
-   - **C** = Combine: What can be combined or integrated?
-   - **A** = Adapt: What can be adapted from elsewhere?
-   - **M** = Modify/Magnify: What can be emphasized or reduced?
-   - **P** = Put to other uses: What else could this be used for?
-   - **E** = Eliminate: What can be removed or simplified?
-   - **R** = Reverse/Rearrange: What can be reversed or reordered?
-
-6. **Six Thinking Hats**
-   [[LLM: Cycle through different thinking modes, spending focused time in each.]]
-
-   - White Hat: Facts and information
-   - Red Hat: Emotions and intuition
-   - Black Hat: Caution and critical thinking
-   - Yellow Hat: Optimism and benefits
-   - Green Hat: Creativity and alternatives
-   - Blue Hat: Process and control
-
-7. **Mind Mapping**
-   [[LLM: Create text-based mind maps with clear hierarchical structure.]]
+7. **Mind Mapping** [[LLM: Create text-based hierarchical structure]]
    ```
-   Central Concept
-   ├── Branch 1
-   │   ├── Sub-idea 1.1
-   │   └── Sub-idea 1.2
-   ├── Branch 2
-   │   ├── Sub-idea 2.1
-   │   └── Sub-idea 2.2
-   └── Branch 3
-       └── Sub-idea 3.1
+   Central Concept → Branch 1 → Sub-ideas
+                  → Branch 2 → Sub-ideas
+                  → Branch 3 → Sub-ideas
    ```
 
-#### Collaborative Techniques
+#### Collaborative
+8. **"Yes, And..." Building** [[LLM: Accept/build without judgment, encourage wild ideas]]
+   • Accept premise • Add with "Yes, and..." • Chain ideas • Explore tangents
 
-8. **"Yes, And..." Building**
-   [[LLM: Accept every idea and build upon it without judgment. Encourage wild ideas and defer criticism.]]
+9. **Brainwriting/Round Robin** [[LLM: Simulate multiple perspectives]]
+   • Stakeholder views • Build in rounds • Combine unrelated • Cross-pollinate
 
-   - Accept the premise of each idea
-   - Add to it with "Yes, and..."
-   - Build chains of connected ideas
-   - Explore tangents freely
+10. **Random Stimulation** [[LLM: Use random triggers for creativity]]
+    • Word association • Picture inspiration • Forced connections • Constraint creativity
 
-9. **Brainwriting/Round Robin**
-   [[LLM: Simulate multiple perspectives by generating ideas from different viewpoints.]]
+#### Deep Exploration
+11. **Five Whys** [[LLM: Dig deeper into root causes/motivations]]
+    • Why? → Answer → Why? (5x) • Uncover assumptions • Root causes • Intervention points
 
-   - Generate ideas from stakeholder perspectives
-   - Build on previous ideas in rounds
-   - Combine unrelated ideas
-   - Cross-pollinate concepts
+12. **Morphological Analysis** [[LLM: Break into parameters, explore combinations]]
+    • List parameters • Possible values • Combination matrix • Unusual combinations
 
-10. **Random Stimulation**
-    [[LLM: Use random words, images, or concepts as creative triggers.]]
-    - Random word association
-    - Picture/metaphor inspiration
-    - Forced connections between unrelated items
-    - Constraint-based creativity
+13. **Provocation (PO)** [[LLM: Make provocative statements to jar thinking]]
+    • PO: Square wheels • PO: Pay to take products • PO: Self-solving • Extract useful ideas
 
-#### Deep Exploration Techniques
+### 3. Selection Guide
+[[LLM: Help select appropriate techniques based on needs]]
 
-11. **Five Whys**
-    [[LLM: Dig deeper into root causes and underlying motivations.]]
+**Initial Exploration:** What If, First Principles, Mind Mapping
+**Stuck/Blocked:** Random Stimulation, Reversal, Provocation
+**Systematic Coverage:** SCAMPER, Morphological, Six Hats
+**Deep Understanding:** Five Whys, Analogical, First Principles
+**Collaborative:** Brainwriting, "Yes And", Six Hats
 
-    - Why does this problem exist? → Answer → Why? (repeat 5 times)
-    - Uncover hidden assumptions
-    - Find root causes, not symptoms
-    - Identify intervention points
+### 4. Session Flow
+[[LLM: Guide with appropriate pacing/transitions]]
 
-12. **Morphological Analysis**
-    [[LLM: Break down into parameters and systematically explore combinations.]]
+1. **Warm-up (5-10m):** Accessible techniques, build confidence, no judgment
+2. **Divergent (20-30m):** Expansion techniques, quantity over quality, wild ideas
+3. **Convergent (15-20m):** Group/categorize, identify patterns, select directions
+4. **Synthesis (10-15m):** Combine ideas, refine concepts, prepare insights
 
-    - List key parameters/dimensions
-    - Identify possible values for each
-    - Create combination matrix
-    - Explore unusual combinations
+### 5. Output
+[[LLM: Present organized, actionable format]]
 
-13. **Provocation Technique (PO)**
-    [[LLM: Make deliberately provocative statements to jar thinking.]]
-    - PO: Cars have square wheels
-    - PO: Customers pay us to take products
-    - PO: The problem solves itself
-    - Extract useful ideas from provocations
-
-### 3. Technique Selection Guide
-
-[[LLM: Help user select appropriate techniques based on their needs.]]
-
-**For Initial Exploration:**
-
-- What If Scenarios
-- First Principles
-- Mind Mapping
-
-**For Stuck/Blocked Thinking:**
-
-- Random Stimulation
-- Reversal/Inversion
-- Provocation Technique
-
-**For Systematic Coverage:**
-
-- SCAMPER
-- Morphological Analysis
-- Six Thinking Hats
-
-**For Deep Understanding:**
-
-- Five Whys
-- Analogical Thinking
-- First Principles
-
-**For Team/Collaborative Settings:**
-
-- Brainwriting
-- "Yes, And..."
-- Six Thinking Hats
-
-### 4. Session Flow Management
-
-[[LLM: Guide the brainstorming session with appropriate pacing and technique transitions.]]
-
-1. **Warm-up Phase** (5-10 min)
-
-   - Start with accessible techniques
-   - Build creative confidence
-   - Establish "no judgment" atmosphere
-
-2. **Divergent Phase** (20-30 min)
-
-   - Use expansion techniques
-   - Generate quantity over quality
-   - Encourage wild ideas
-
-3. **Convergent Phase** (15-20 min)
-
-   - Group and categorize ideas
-   - Identify patterns and themes
-   - Select promising directions
-
-4. **Synthesis Phase** (10-15 min)
-   - Combine complementary ideas
-   - Refine and develop concepts
-   - Prepare summary of insights
-
-### 5. Output Format
-
-[[LLM: Present brainstorming results in an organized, actionable format.]]
-
-**Session Summary:**
-
-- Techniques used
-- Number of ideas generated
-- Key themes identified
-
-**Idea Categories:**
-
-1. **Immediate Opportunities** - Ideas that could be implemented now
-2. **Future Innovations** - Ideas requiring more development
-3. **Moonshots** - Ambitious, transformative ideas
-4. **Insights & Learnings** - Key realizations from the session
-
-**Next Steps:**
-
-- Which ideas to explore further
-- Recommended follow-up techniques
-- Suggested research areas
+**Summary:** Techniques used, ideas generated, themes identified
+**Categories:** 1) Immediate opportunities 2) Future innovations 3) Moonshots 4) Insights
+**Next Steps:** Explore further, follow-up techniques, research areas
 
 ## Instructions
-
-- Maintain energy and momentum throughout the session
-- Defer judgment - all ideas are valid during generation
-- Quantity leads to quality - aim for many ideas
-- Build on ideas collaboratively
-- Document everything - even "silly" ideas can spark breakthroughs
-- Take breaks if energy flags
-- End with clear next actions
+• Maintain energy/momentum • Defer judgment • Quantity → quality • Build collaboratively • Document everything • Take breaks • End with actions
