@@ -12,8 +12,6 @@ templates:
 [[LLM: Duplicate the templates line for any additional template references and remove this instruction afterward.]]
 ---
 
-# {{Task Heading}}
-
 ## Purpose
 
 {{Concise explanation of why this task exists and the outcome it produces.}}

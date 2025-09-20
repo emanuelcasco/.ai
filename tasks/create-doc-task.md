@@ -6,8 +6,6 @@ templates:
   - @~/.ai/templates/task.tmp.md
 ---
 
-# Create Task Document
-
 ## Purpose
 
 Produce a standardized task definition using the task template so automation agents can execute consistent workflows with clear expectations.

@@ -6,8 +6,6 @@ templates:
   - @~/.ai/templates/implementation-plan.tmp.md
 ---
 
-# Create Implementation Plan for Story
-
 ## Purpose
 
 Generate a document containing an implementation plan for a provided story or task (it could be created locally or provided from a issue manager).

@@ -4,8 +4,6 @@ type: task
 mode: think
 ---
 
-# Create Documentation for Agent System Prompts and Tool Descriptions
-
 ## Objective
 
 Develop a guide that helps create high-quality agent prompts that leverage:
