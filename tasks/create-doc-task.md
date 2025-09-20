@@ -1,80 +1,71 @@
 ---
-title: Create Document from Template Task
+title: Create Task Document
 type: task
-mode: think
+mode: ultrathink
+templates:
+  - @~/.ai/templates/task.tmp.md
 ---
+
+# Create Task Document
 
 ## Purpose
 
-Generate documents from any specified template following embedded instructions from the perspective of the selected agent persona
+Produce a standardized task definition using the task template so automation agents can execute consistent workflows with clear expectations.
 
 ## Workflow
 
-### 1. Identify Template and Context
+### 0. Collect Inputs
 
-- Determine which template to use (user-provided or list available for selection to user)
+- Confirm the task objective and expected outputs with the requester.
+- Gather reference workflows, templates, or domain standards that inform execution.
+- Identify the target storage path in `~/.ai/tasks` unless otherwise directed.
 
-  - Agent-specific templates are listed in the agent's dependencies under `templates`. For each template listed, consider it a document the agent can create. So if an agent has:
+### 1. Instantiate Template
 
-    @{example}
-    dependencies:
-    templates: - README.tmp - architecture.tmp
-    @{/example}
+- Create a new markdown file using @~/.ai/templates/task.tmp.md.
+- Name the file in kebab-case matching the task intent (e.g., `create-example-task.md`).
+- Populate front matter placeholders with concrete metadata (title, mode, template references).
 
-    You would offer to create "README" and "architecture" documents when the user asks what you can help with.
+### 2. Document Purpose
 
-- Gather all relevant inputs, or ask for them, or else rely on user providing necessary details to complete the document
-- Understand the document purpose and target audience
+- Summarize why the task exists in two to three sentences focused on the outcome.
+- Capture prerequisites or dependencies the executor must satisfy before starting.
 
-### 2. Determine Interaction Mode
+### 3. Detail Workflow
 
-Confirm with the user their preferred interaction style:
+- Break the execution into ordered stages using the template's repeated step block.
+- Keep each stage focused on a single outcome; add sub-bullets for critical checks or artifacts.
+- Highlight decision points, required inputs, and expected deliverables for each stage.
 
-- **Incremental:** Work through chunks of the document.
-- **YOLO Mode:** Draft complete document making reasonable assumptions in one shot. (Can be entered also after starting incremental by just typing /yolo)
+### 4. Add Supporting Instructions
 
-### 3. Execute Template
+- List global constraints (tooling, communication cadence, approvals) that apply throughout.
+- Reference template conventions—never expose `[[LLM:]]`, `<<REPEAT>>`, or other markup to users.
+- Include conditional guidance with `^^CONDITION^^` blocks when rules apply only in certain contexts.
 
-- Load specified template from the @~/.ai/templates` directory
-- Follow ALL embedded LLM instructions within the template
-- Process template markup according to `utils#template-format` conventions
+### 5. Define Success Criteria
 
-### 4. Template Processing Rules
+- Translate completion requirements into measurable checkboxes.
+- Ensure criteria cover purpose clarity, workflow completeness, quality gates, and output format.
 
-#### CRITICAL: Never display template markup, LLM instructions, or examples to users
+### 6. Review and Finalize
 
-- Replace all {{placeholders}} with actual content
-- Execute all [[LLM: instructions]] internally
-- Process `<<REPEAT>>` sections as needed
-- Evaluate ^^CONDITION^^ blocks and include only if applicable
-- For the new file, simply remove the `.tmp` extension. For example, if the template is "README.tmp.md", the new name should be "README.md".
-- If there is a file previously created with the same name, merge the content of the new file into the existing file ensuring to keep the existing file's content and not overwrite it. You don't have to append but to fusion both files.
-- Use @{examples} for guidance but never output them
-
-### 5. Content Generation
-
-- **Incremental Mode**: Present each major section for review before proceeding
-- **YOLO Mode**: Generate all sections, then review complete document with user
-- Apply any elicitation protocols specified in template
-- Incorporate user feedback and iterate as needed
-
-### 6. Validation
-
-If template specifies a checklist:
-
-- Run the appropriate checklist against completed document
-- Document completion status for each item
-- Address any deficiencies found
-- Present validation summary to user
-
-### 7. Final Presentation
-
-- Present clean, formatted content only
-- Ensure all sections are complete
-- DO NOT truncate or summarize content
-- Begin directly with document content (no preamble)
-- Include any handoff prompts specified in template
+- Proofread for typos, unresolved placeholders, and markup leaks.
+- Verify references (paths, templates, tooling) exist and remain accurate.
+- Save to the tasks directory and stage or share per workflow expectations.
 
 ## Instructions
 
-- Template markup is for AI processing only - never expose to users
+- Preserve template markup for AI processing; present clean content when sharing with humans.
+- Replace every placeholder with real context—never leave braces or example text unresolved.
+- Pause and request clarification if requirements are ambiguous before drafting.
+
+## Success Criteria
+
+- [ ] File created in `~/.ai/tasks` with a descriptive kebab-case filename.
+- [ ] Front matter accurately reflects task metadata and references.
+- [ ] Purpose communicates the task's outcome and context.
+- [ ] Workflow steps cover end-to-end execution with actionable guidance.
+- [ ] Instructions section lists global constraints and caveats.
+- [ ] Success criteria connect directly to workflow outputs and quality gates.
+- [ ] Document free of unresolved placeholders, markup leaks, and grammatical errors.
