@@ -1,4 +1,4 @@
-# GEMINI.md
+# AGENTS MEMORY
 
 ## Directory Overview
 
