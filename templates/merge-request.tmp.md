@@ -106,23 +106,17 @@
 [[LLM: Replace all {{placeholders}} with actual content from git analysis. Process conditional blocks (^^CONDITION^^) only if applicable. Use git diff, file analysis, and code inspection to populate technical details accurately.]]
 
 @{example_summary}
-Implements **True Cost of Water Variable Allocation Tracking** feature to enable companies to track and analyze water-related costs across sites with flexible allocation strategies and aggregation capabilities.
+Implements **{{FEATURE_NAME}}** feature to enable {{FEATURE_DESCRIPTION}}.
 @{/example_summary}
 
 @{example_endpoint}
-
-- **`GET /:companyId/true-cost`** - Retrieve true cost allocations with flexible aggregation (company/site/site-group level)
-- **`POST /:companyId/sites/:siteId/true-cost`** - Create new true cost allocation for a site
-  @{/example_endpoint}
+- **`GET /:companyId/{{ENDPOINT_NAME}}`** - {{ENDPOINT_DESCRIPTION}}
+@{/example_endpoint}
 
 @{example_feature}
-
-- **Multi-level aggregation**: Company, Site Group, and Site level views
-- **Flexible allocation strategies**: Even split, proportional by production/capacity
-  @{/example_feature}
+- **{{FEATURE_NAME}}**: {{FEATURE_DESCRIPTION}}
+@{/example_feature}
 
 @{example_component}
-
-- **`AllocationsRepository`**: CRUD operations for allocation management
-- **`TrueCostOfWaterService`**: Business logic layer with error handling
-  @{/example_component}
+- **`{{COMPONENT_NAME}}`**: {{COMPONENT_DESCRIPTION}}
+@{/example_component}
