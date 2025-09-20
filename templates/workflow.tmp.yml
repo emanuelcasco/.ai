@@ -1,0 +1,25 @@
+workflow:
+  name: <workflow_name>
+  description: <short description of what this workflow achieves>
+  version: 1.0
+
+  defaults:
+    execution: sequential   # sequential | parallel
+    retry: 1                # number of retries if step fails
+    timeout: 30m            # default timeout for steps
+
+  context:
+    topics: []              # optional: global parameters
+    env: {}                 # optional: environment variables
+
+  steps:
+    - id: <step_id>
+      agent: <agent_name>
+      execution: sequential | parallel   # overrides default
+      foreach: <file/list/variable>      # optional: iterate items
+      input: <file_or_path>              # optional: where data comes from
+      output: <file_or_path>             # optional: where results go
+      task: |
+        <natural language description of what this step does>
+      context:
+        <extra parameters specific to this step>
