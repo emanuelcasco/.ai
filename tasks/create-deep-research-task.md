@@ -6,7 +6,7 @@ mode: think harder
 
 ## Purpose
 
-This task helps create comprehensive research prompts for various types of deep analysis. It can process inputs from brainstorming sessions, project briefs, market research, or specific research questions to generate targeted prompts for deeper investigation.
+Create comprehensive research prompts for deep analysis from brainstorming sessions, project briefs, market research, or specific questions.
 
 ## Workflow
 
@@ -78,98 +78,36 @@ Present these numbered options to the user:
 
 ### 2. Input Processing
 
-**If Project Brief provided:**
-
-- Extract key product concepts and goals
-- Identify target users and use cases
-- Note technical constraints and preferences
-- Highlight uncertainties and assumptions
-
-**If Brainstorming Results provided:**
-
-- Synthesize main ideas and themes
-- Identify areas needing validation
-- Extract hypotheses to test
-- Note creative directions to explore
-
-**If Market Research provided:**
-
-- Build on identified opportunities
-- Deepen specific market insights
-- Validate initial findings
-- Explore adjacent possibilities
-
-**If Starting Fresh:**
-
-- Gather essential context through questions
-- Define the problem space
-- Clarify research objectives
-- Establish success criteria
+**Project Brief**: Extract product concepts, users, constraints, assumptions
+**Brainstorming**: Synthesize themes, validation areas, hypotheses
+**Market Research**: Build on opportunities, deepen insights, validate findings
+**Starting Fresh**: Gather context, define problem space, set objectives
 
 ### 3. Research Prompt Structure
 
-[[LLM: Based on the selected research type and context, collaboratively develop a comprehensive research prompt with these components.]]
+[[LLM: Collaboratively develop comprehensive research prompt with these components.]]
 
 #### A. Research Objectives
-
-[[LLM: Work with the user to articulate clear, specific objectives for the research.]]
-
-- Primary research goal and purpose
-- Key decisions the research will inform
-- Success criteria for the research
+[[LLM: Articulate clear, specific research objectives.]]
+- Primary goal and purpose
+- Key decisions to inform
+- Success criteria
 - Constraints and boundaries
 
 #### B. Research Questions
-
-[[LLM: Develop specific, actionable research questions organized by theme.]]
-
-**Core Questions:**
-
-- Central questions that must be answered
-- Priority ranking of questions
-- Dependencies between questions
-
-**Supporting Questions:**
-
-- Additional context-building questions
-- Nice-to-have insights
-- Future-looking considerations
+[[LLM: Develop specific, actionable questions by theme.]]
+**Core**: Central must-answer questions with priorities and dependencies
+**Supporting**: Context-building, nice-to-have, future considerations
 
 #### C. Research Methodology
-
-[[LLM: Specify appropriate research methods based on the type and objectives.]]
-
-**Data Collection Methods:**
-
-- Secondary research sources
-- Primary research approaches (if applicable)
-- Data quality requirements
-- Source credibility criteria
-
-**Analysis Frameworks:**
-
-- Specific frameworks to apply
-- Comparison criteria
-- Evaluation methodologies
-- Synthesis approaches
+[[LLM: Specify methods based on type and objectives.]]
+**Data Collection**: Sources, approaches, quality/credibility requirements
+**Analysis**: Frameworks, criteria, methodologies, synthesis approaches
 
 #### D. Output Requirements
-
-[[LLM: Define how research findings should be structured and presented.]]
-
-**Format Specifications:**
-
-- Executive summary requirements
-- Detailed findings structure
-- Visual/tabular presentations
-- Supporting documentation
-
-**Key Deliverables:**
-
-- Must-have sections and insights
-- Decision-support elements
-- Action-oriented recommendations
-- Risk and uncertainty documentation
+[[LLM: Define findings structure and presentation.]]
+**Format**: Executive summary, detailed findings, visuals, documentation
+**Deliverables**: Key insights, decision support, recommendations, risk documentation
 
 ### 4. Prompt Generation
 
@@ -231,49 +169,25 @@ Present these numbered options to the user:
 
 ### 5. Review and Refinement
 
-[[LLM: Present the draft research prompt for user review and refinement.]]
+[[LLM: Present draft research prompt for review and refinement.]]
 
-1. **Present Complete Prompt**
-
-   - Show the full research prompt
-   - Explain key elements and rationale
-   - Highlight any assumptions made
-
-2. **Gather Feedback**
-
-   - Are the objectives clear and correct?
-   - Do the questions address all concerns?
-   - Is the scope appropriate?
-   - Are output requirements sufficient?
-
-3. **Refine as Needed**
-   - Incorporate user feedback
-   - Adjust scope or focus
-   - Add missing elements
-   - Clarify ambiguities
+1. **Present Complete Prompt**: Show full prompt, explain elements, highlight assumptions
+2. **Gather Feedback**: Validate objectives, questions, scope, output requirements
+3. **Refine**: Incorporate feedback, adjust scope, add missing elements, clarify ambiguities
 
 ### 6. Next Steps Guidance
 
-[[LLM: Provide clear guidance on how to use the research prompt.]]
+[[LLM: Provide clear guidance on research prompt usage.]]
 
-**Execution Options:**
+**Execution Options**: AI research assistant, human research framework, or hybrid approach
 
-1. **Use with AI Research Assistant**: Provide this prompt to an AI model with research capabilities
-2. **Guide Human Research**: Use as a framework for manual research efforts
-3. **Hybrid Approach**: Combine AI and human research using this structure
-
-**Integration Points:**
-
-- How findings will feed into next phases
-- Which team members should review results
-- How to validate findings
-- When to revisit or expand research
+**Integration Points**: Phase integration, team review, validation methods, expansion triggers
 
 ## Instructions
 
-- The quality of the research prompt directly impacts the quality of insights gathered
-- Be specific rather than general in research questions
-- Consider both current state and future implications
+- Research prompt quality directly impacts insight quality
+- Use specific rather than general questions
+- Consider current state and future implications
 - Balance comprehensiveness with focus
 - Document assumptions and limitations clearly
-- Plan for iterative refinement based on initial findings
+- Plan iterative refinement from initial findings

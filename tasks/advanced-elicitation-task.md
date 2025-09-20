@@ -6,30 +6,21 @@ mode: think harder
 
 ## Purpose
 
-- Provide optional reflective and brainstorming actions to enhance content quality
-- Enable deeper exploration of ideas through structured elicitation techniques
-- Support iterative refinement through multiple analytical perspectives
+Provide reflective and brainstorming actions to enhance content quality through structured elicitation techniques and iterative refinement.
 
 ## Instructions
 
 ### 1. Section Context and Review
 
 [[LLM: When invoked after outputting a section:
-
-1. First, provide a brief 1-2 sentence summary of what the user should look for in the section just presented (e.g., "Please review the technology choices for completeness and alignment with your project needs. Pay special attention to version numbers and any missing categories.")
-
-2. If the section contains Mermaid diagrams, explain each diagram briefly before offering elicitation options (e.g., "The component diagram shows the main system modules and their interactions. Notice how the API Gateway routes requests to different services.")
-
-3. If the section contains multiple distinct items (like multiple components, multiple patterns, etc.), inform the user they can apply elicitation actions to:
-
-   - The entire section as a whole
-   - Individual items within the section (specify which item when selecting an action)
-
-4. Then present the action list as specified below.]]
+1. Provide 1-2 sentence summary of what user should review
+2. If Mermaid diagrams present, explain each briefly before offering options
+3. For multiple items, inform user they can apply actions to entire section or individual items
+4. Present action list below.]]
 
 ### 2. Ask for Review and Present Action List
 
-[[LLM: Ask the user to review the drafted section. In the SAME message, inform them that they can suggest additions, removals, or modifications, OR they can select an action by number from the 'Advanced Reflective, Elicitation & Brainstorming Actions'. If there are multiple items in the section, mention they can specify which item(s) to apply the action to. Then, present ONLY the numbered list (0-9) of these actions. Conclude by stating that selecting 9 will proceed to the next section. Await user selection. If an elicitation action (0-8) is chosen, execute it and then re-offer this combined review/elicitation choice. If option 9 is chosen, or if the user provides direct feedback, proceed accordingly.]]
+[[LLM: Ask user to review section. In SAME message, inform they can suggest modifications OR select numbered action. For multiple items, mention they can specify which to apply action to. Present ONLY numbered list (0-9). State selecting 9 proceeds to next section. If 0-8 chosen, execute then re-offer choice. If 9 or direct feedback, proceed accordingly.]]
 
 **Present the numbered list (0-9) with this exact format:**
 
@@ -49,19 +40,11 @@ Choose an action (0-9 - 9 to bypass - HELP for explanation of these options):
 9. Proceed / No Further Actions
 ```
 
-### 2. Processing Guidelines
+### 3. Processing Guidelines
 
-**Do NOT show:**
+**Do NOT show**: Protocol text with `[[LLM: ...]]` instructions, detailed explanations unless executing, internal markup
 
-- The full protocol text with `[[LLM: ...]]` instructions
-- Detailed explanations of each option unless executing or the user asks, when giving the definition you can modify to tie its relevance
-- Any internal template markup
-
-**After user selection from the list:**
-
-- Execute the chosen action according to the protocol instructions below
-- Ask if they want to select another action or proceed with option 9 once complete
-- Continue until user selects option 9 or indicates completion
+**After user selection**: Execute chosen action per protocol below, ask for another action or proceed with option 9, continue until option 9 or completion
 
 ## Workflow
 

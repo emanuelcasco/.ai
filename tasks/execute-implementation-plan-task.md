@@ -5,75 +5,62 @@ type: task
 
 ## Purpose
 
-This task provides instructions for validating documentation against checklists. The agent MUST follow these instructions to ensure thorough and systematic validation of documents.
+Validates documentation against checklists through systematic workflow. Agent MUST follow instructions for thorough document validation.
 
 ## Workflow
 
 ### 1. Initial Assessment
 
-- If user or the task being run provides a checklist name:
-  - Try fuzzy matching (e.g. "architecture checklist" -> "architect-checklist")
-  - If multiple matches found, ask user to clarify
-  - Load the appropriate checklist from bmad-core/checklists/
-- If no checklist specified:
-  - Ask the user which checklist they want to use
-  - Present the available options from the files in the checklists folder
-- Confirm if they want to work through the checklist:
-  - Section by section (interactive mode - very time consuming)
-  - All at once (YOLO mode - recommended for checklists, there will be a summary of sections at the end to discuss)
+- **With checklist name provided:**
+  - Apply fuzzy matching (e.g., "architecture checklist" → "architect-checklist")
+  - Request clarification for multiple matches
+  - Load appropriate checklist from bmad-core/checklists/
+- **Without checklist specified:**
+  - Present available options from checklists folder
+  - Request user selection
+- **Confirm processing mode:**
+  - Section-by-section (interactive - time-intensive)
+  - All-at-once (YOLO - recommended, includes final section summary)
 
-### 2. Document and Artifact Gathering
+### 2. Document Gathering
 
-- Each checklist will specify its required documents/artifacts at the beginning
-- Follow the checklist's specific instructions for what to gather, generally a file can be resolved in the docs folder, if not or unsure, halt and ask or confirm with the user.
+- Follow checklist-specified required documents/artifacts
+- Resolve files in docs folder; halt and confirm if uncertain
 
 ### 3. Checklist Processing
 
-If in interactive mode:
+**Interactive mode:**
+- Process each section sequentially
+- Review all section items per embedded instructions
+- Check items against relevant documentation/artifacts
+- Present section findings highlighting warnings, errors, non-applicable items (with rationale)
+- Obtain user confirmation before proceeding; halt for major issues requiring corrective action
 
-- Work through each section of the checklist one at a time
-- For each section:
-  - Review all items in the section following instructions for that section embedded in the checklist
-  - Check each item against the relevant documentation or artifacts as appropriate
-  - Present summary of findings for that section, highlighting warnings, errors and non applicable items (rationale for non-applicability).
-  - Get user confirmation before proceeding to next section or if any thing major do we need to halt and take corrective action
-
-If in YOLO mode:
-
-- Process all sections at once
-- Create a comprehensive report of all findings
-- Present the complete analysis to the user
+**YOLO mode:**
+- Process all sections simultaneously
+- Generate comprehensive findings report
+- Present complete analysis
 
 ### 4. Validation Approach
 
-For each checklist item:
-
-- Read and understand the requirement
-- Look for evidence in the documentation that satisfies the requirement
-- Consider both explicit mentions and implicit coverage
-- Aside from this, follow all checklist llm instructions
-- Mark items as:
-  - ✅ PASS: Requirement clearly met
-  - ❌ FAIL: Requirement not met or insufficient coverage
-  - ⚠️ PARTIAL: Some aspects covered but needs improvement
-  - N/A: Not applicable to this case
+Per checklist item:
+- Understand requirement
+- Seek evidence satisfying requirement in documentation
+- Consider explicit mentions and implicit coverage
+- Follow all checklist LLM instructions
+- Mark items resolved
 
 ### 5. Section Analysis
 
-For each section:
+Per section:
+- Identify themes in failed items
+- Provide specific improvement recommendations
+- Discuss findings with user (interactive mode)
+- Document user decisions/explanations
 
-- think step by step to calculate pass rate
-- Identify common themes in failed items
-- Provide specific recommendations for improvement
-- In interactive mode, discuss findings with user
-- Document any user decisions or explanations
+## Final Report
 
-### 6. Final Report
-
-Prepare a summary that includes:
-
-- Overall checklist completion status
-- Pass rates by section
-- List of failed items with context
-- Specific recommendations for improvement
-- Any sections or items marked as N/A with justification
+Summary includes:
+- Overall completion status
+- Specific improvement recommendations
+- Non-applicable sections/items with justification
