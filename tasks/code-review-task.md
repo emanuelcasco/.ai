@@ -6,92 +6,77 @@ mode: think
 
 ## Purpose
 
-Perform a comprehensive code review for a given Merge Request (MR) link or branch, following conventional comments guidelines and generating a structured markdown review document with actionable feedback.
+Perform comprehensive code review for MR links/branches using conventional comments, generating structured markdown with actionable feedback.
 
 ## Workflow
 
-### 1. Initial Setup and Analysis
+### 1. Initial Analysis
 
 **Gather MR Information:**
 
-- [ ] MR link or branch provided
-- [ ] Access MR details (title, description, changes)
-- [ ] Identify changed files and scope of modifications
-- [ ] Understand the context and purpose of the changes
+- [ ] Access MR (title, description, changes, files)
+- [ ] Understand context and modification scope
 
 **Technical Assessment:**
 
-- [ ] Review code quality and adherence to standards
-- [ ] Check for security vulnerabilities
-- [ ] Assess performance implications
-- [ ] Verify architectural consistency
-- [ ] Evaluate test coverage and quality
+- [ ] Code quality, standards adherence
+- [ ] Security vulnerabilities, performance impact
+- [ ] Architectural consistency, test coverage
 
-### 2. Code Review Execution
+### 2. Review Execution
 
-**Review Guidelines:**
+**Guidelines:**
 
-- Follow https://conventionalcomments.org/ format
-- Keep comments brief and actionable
-- Be gentle and explain the reasoning behind suggestions
-- Focus on code quality, security, performance, and maintainability
-- Provide constructive feedback with clear improvement paths
+- Follow Conventional Comments format
+- Brief, actionable, gentle explanations
+- Focus: quality, security, performance, maintainability
 
 **Comment Structure:**
 
 ```
-<label> [decoration]: <subject>
-
+<label>: <subject>
 [discussion]
 ```
 
 **Labels:** `praise`, `nitpick`, `suggestion`, `issue`, `todo`, `question`, `thought`, `chore`, `note`
-**Decorations:** `(non-blocking)`, `(blocking)`, `(if-minor)`
 
 ### 3. Generate Review Document
 
-Create a markdown file named: `code-review-{timestamp}-{mr-id}.md`
+**Filename:** `code-review-{timestamp}-{mr-id}.md`
 
-**Document Structure:**
+**Structure:**
 
 ```markdown
 # Code Review - [MR Title]
 
 **MR Link:** [link]
-**Reviewer:** Aristotle (Business Analyst)
 **Date:** {current_date}
 
 ## Review Status
 
 - [ ] **Approved** - Ready to merge
-- [ ] **Approved with Comments** - Can merge, address comments in follow-up
-- [ ] **Request Changes** - Must address issues before merge
+- [ ] **Approved with Comments** - Can merge, address in follow-up
+- [ ] **Request Changes** - Must address before merge
 
 ## Summary
 
-Brief overview of the changes and overall assessment.
+Brief overview and overall assessment.
 
 ## Review Comments
 
 ### File: {filename}
 
-- [ ] **{comment_type}**: {brief_description}
+#### [ ] {type}: {description}
 
-  **Location:** Line {number} or function/class {name}
+- Comments: <LEAVE EMPTY FOR USER FEEDBACK ON THE LOOP>
+- Location: Line {number} or {name}
+- Comment: {conventional_format}
+- Suggested Change:
 
-  **Comment:**
-  {conventional_comment_format}
+`/`/`/diff
+// Proposed code if applicable
+`/`/`/`
 
-  **Suggested Change:**
-  `/`/`/{language}
-// Proposed code change if applicable
-`/`/`/
-
-### File: {filename2}
-
-- [ ] **{comment_type}**: {brief_description}
-
-  ... (repeat for each comment)
 
 ## Output
 
@@ -99,90 +84,72 @@ Brief overview of the changes and overall assessment.
 - **Blocking Issues:** {number}
 - **Non-blocking Suggestions:** {number}
 - **Files Reviewed:** {list}
-- **Overall Assessment:** {brief_summary}
+- **Overall Assessment:** {summary}
 
 ## Next Steps
 
-- [ ] User reviews markdown and checks completed items
-- [ ] User requests submission of remaining comments to MR
-- [ ] Apply review status to MR (approve/request changes)
+- [ ] User reviews markdown, checks completed items
+- [ ] User requests submission of remaining comments
+- [ ] Apply review status to MR
 ```
 
-### 4. User Review and Feedback Loop
+### 4. User Review Loop
 
-**Wait for User Review:**
-
-- Present the markdown document to user
-- Allow user to review and check boxes for items they want to address
-- User can modify or remove comments as needed
-- User indicates when ready to submit remaining comments
+Present markdown → User reviews/modifies → User indicates submission readiness
 
 ### 5. MR Comment Submission
 
-**When User Requests Submission:**
+**When requested:**
 
-- [ ] Re-read the markdown file
-- [ ] Identify unchecked comments (remaining items to submit)
-- [ ] Submit only the remaining comments to the actual MR
-- [ ] Apply the selected review status (approve/request changes/comment only)
-- [ ] Confirm submission with summary
-
-**Final Report Structure:**
-
-```
-✅ Code Review Completed
-
-**Comments Submitted:** {number}
-**Files with Comments:** {list}
-**Review Status Applied:** {approved/requested_changes/commented}
-
-**Breakdown:**
-- Blocking Issues: {number}
-- Suggestions: {number}
-- Questions: {number}
-- Praise: {number}
-```
+- [ ] Re-read markdown file
+- [ ] Identify unchecked comments
+- [ ] Submit remaining comments to MR
+- [ ] Apply review status
+- [ ] Confirm with summary
 
 ### 6. Quality Standards
 
 **Code Quality Checklist:**
 
-- [ ] Follows established coding conventions
-- [ ] Proper error handling and validation
-- [ ] Security best practices implemented
-- [ ] Performance considerations addressed
-- [ ] Code is readable and maintainable
-- [ ] Proper documentation and comments
-- [ ] Test coverage is adequate
-- [ ] No obvious bugs or logical errors
+- [ ] Coding conventions, error handling, security practices
+- [ ] Performance, readability, documentation
+- [ ] Test coverage, no obvious bugs
 
-**Comment Quality Standards:**
+**Comment Quality:**
 
-- [ ] Clear and actionable feedback
-- [ ] Constructive and respectful tone
-- [ ] Includes reasoning behind suggestions
-- [ ] Follows conventional comments format
-- [ ] Appropriate priority levels assigned
-- [ ] Code examples provided when helpful
+- [ ] Clear, actionable, constructive, respectful
+- [ ] Reasoning included, conventional format
+- [ ] Appropriate priority, code examples when helpful
 
 ## Instructions
 
-- **Be Constructive:** Focus on improvement, not criticism
-- **Explain Reasoning:** Always provide context for suggestions
-- **Prioritize Issues:** Use blocking vs non-blocking appropriately
-- **Security Focus:** Pay special attention to security implications
-- **Performance Awareness:** Consider scalability and performance impacts
-- **Follow Conventions:** Adhere to project-specific coding standards
-- **Test Coverage:** Ensure adequate testing for new functionality
-- **Documentation:** Verify that changes are properly documented
+- **Be Constructive:** Improve, don't criticize
+- **Explain Reasoning:** Provide context for suggestions
+- **Prioritize:** Use blocking vs non-blocking appropriately
+- **Focus Areas:** Security, performance, conventions, testing, documentation
 
 ## Success Criteria
 
-The code review is successful when:
+1. **Comprehensive Analysis:** All files and critical paths reviewed
+2. **Structured Documentation:** Clear markdown with actionable items
+3. **Quality Feedback:** Conventional format, valuable comments
+4. **User Control:** Review/modify before submission
+5. **Proper Status:** Appropriate MR review status
+6. **Clear Communication:** Final summary with action items
 
-1. **Comprehensive Analysis:** All changed files and critical paths reviewed
-2. **Structured Documentation:** Clear markdown document with actionable items
-3. **Quality Feedback:** Comments follow conventional format and provide value
-4. **User Control:** User can review and modify comments before submission
-5. **Proper Status:** Appropriate review status applied to MR
-6. **Clear Communication:** Final summary provides clear action items
+## Output
+
+```plain
+✅ Code Review Completed
+
+- Comments Submitted: {number}
+- Files with Comments: {list}
+- Review Status Applied: {status}
+
+Breakdown:
+
+- Blocking Issues: {number}
+- Suggestions: {number}
+- Questions: {number}
+- Praise: {number}
+```
