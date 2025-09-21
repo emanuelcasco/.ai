@@ -8,6 +8,10 @@ mode: ultrathink
 
 Enable a professional high-fidelity condenser to transform complex source documents into condensed versions that preserve argumentation, examples, causal logic, and emotional tone while tightening language and structure.
 
+## Variables
+
+- $INPUT: Either a file path to a document or a text to be condensed.
+
 ## Workflow
 
 ### 0. Confirm Inputs and Readiness
@@ -60,6 +64,10 @@ Enable a professional high-fidelity condenser to transform complex source docume
 
 - Confirm main arguments, key examples, causal logic, and emotional tone remain intact across all chunks.
 - Ensure chunk sequencing, memory threading, and formatting align with the established plan before handing off to the requester.
+
+### 10. Apply changes
+
+- Apply the changes to the original document.
 
 ## Instructions
 
