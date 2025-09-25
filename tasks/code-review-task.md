@@ -77,7 +77,6 @@ Brief overview and overall assessment.
 // Proposed code if applicable
 `/`/`/`
 
-
 ## Output
 
 - **Total Comments:** {number}
@@ -99,11 +98,15 @@ Present markdown → User reviews/modifies → User indicates submission readine
 
 ### 5. MR Comment Submission
 
+**CRITICAL: Comments must be inline on specific code lines, not standalone MR notes.**
+
+**Important:** Always use inline comments attached to specific lines in the code, never standalone general comments.
+
 **When requested:**
 
 - [ ] Re-read markdown file
 - [ ] Identify unchecked comments
-- [ ] Submit remaining comments to MR
+- [ ] Submit inline comments to specific file lines using `--file` and `--line` parameters
 - [ ] Apply review status
 - [ ] Confirm with summary
 
