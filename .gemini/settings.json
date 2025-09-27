@@ -1,0 +1,32 @@
+{
+  "context": {
+    "fileName": ["AGENTS.md", "~/.ai/data/technical-preferences.md"],
+    "includeDirectories": ["~/.ai", "~/.gemini"],
+    "loadFromIncludeDirectories": true,
+    "fileFiltering": {
+      "respectGitIgnore": true
+    }
+  },
+  "ide": {
+    "hasSeenNudge": true,
+    "enabled": true
+  },
+  "general": {
+    "preferredEditor": "windsurf"
+  },
+  "tools": {
+    "enabled": true,
+    "allowed": [
+      "run_shell_command(git add)",
+      "run_shell_command(git branch)",
+      "run_shell_command(git checkout)",
+      "run_shell_command(git commit)",
+      "run_shell_command(git diff)",
+      "run_shell_command(git push)",
+      "run_shell_command(git status)",
+      "run_shell_command(npm lint)",
+      "run_shell_command(npm test)"
+    ]
+  },
+  "ui": {}
+}

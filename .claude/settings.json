@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git checkout:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(glab auth:*)",
+      "Bash(glab mr create:*)",
+      "Bash(glab mr list:*)",
+      "Bash(glab mr view:*)",
+      "Bash(grep:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm test:*)",
+      "mcp__linear__create_comment",
+      "mcp__linear__get_issue",
+      "Read",
+      "Read(*)"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccusage statusline --context-low-threshold 30 --context-medium-threshold 60",
+    "padding": 0
+  },
+  "includeCoAuthoredBy": false
+}
