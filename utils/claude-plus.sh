@@ -101,6 +101,10 @@ while [[ $# -gt 0 ]]; do
       memory_enabled="$2"
       shift 2
       ;;
+    --yolo)
+      args+=("--dangerously-skip-permissions")
+      shift
+      ;;
     -h|--help)
       show_help
       exit 0
