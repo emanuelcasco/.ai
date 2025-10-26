@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*), Bash(glab mr view:*), Bash(glab mr list:*), Bash(glab mr update:*)
+allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*), Bash(gh pr view:*), Bash(gh pr list:*), Bash(gh pr edit:*)
 description: Commit, push, and open a PR/MR
 argument-hint: [--share (on slack), --branch <branch-name>, --issue <issue-url>]
 type: command
