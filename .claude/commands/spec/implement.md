@@ -41,7 +41,7 @@ type: command
 ## Examples
 
 ```plain
-/spec:implement /path/to/spec/20241128120000_user_auth.md
-/spec:implement /path/to/spec/feature_spec.md "Use TypeScript strict mode"
-/spec:implement /path/to/spec/checkout_flow.md "Focus on error handling"
+/spec:implement /path/to/specs/20241128120000_user_auth.md
+/spec:implement /path/to/specs/feature_spec.md "Use TypeScript strict mode"
+/spec:implement /path/to/specs/checkout_flow.md "Focus on error handling"
 ```

@@ -6,16 +6,16 @@ type: command
 
 ## Usage
 
-`task $TASK $INSTRUCTION?`
+`/task {TASK} {INSTRUCTION?}`
 
 ## Variables
 
-- $TASK: The task to execute (available tasks are listed on the dir @~/.ai/tasks). Provide auto-complete.
-- $INSTRUCTION: The instruction to execute (optional).
+- {TASK}: The task to execute (available tasks are listed on the dir @~/.ai/tasks). Provide auto-complete.
+- {INSTRUCTION}: The instruction to execute (optional).
 
 ## Workflow
 
-1. Search for @~/.ai/tasks/$TASK-task.md where $TASK is indicating the name of the task to adopt.
+1. Search for @~/.ai/tasks/{TASK}-task.md where {TASK} is indicating the name of the task to adopt.
 2. Follow instructions presented in the task document, and proceed until you complete the task.
 
 ## Instructions
@@ -24,11 +24,11 @@ CRITICAL: Read the full task document, follow instructions, and proceed until yo
 
 - Avoid to `List` all available tasks, if the user provides the Task identifier simply use it, for example:
 - if the user does `/task create-mr` then use the `create-mr-task.md` file
-  - `task_id` should be `create-mr`
-  - `instruction` should be empty
+  - `TASK` should be `create-mr`
+  - `INSTRUCTION` should be empty
 - if the user does `/task refine some instruction` then use the `refine-task.md` file
-  - `task_id` should be `refine`
-  - `instruction` should be `some instruction`
+  - `TASK` should be `refine`
+  - `INSTRUCTION` should be `some instruction`
 - if the user asks for a task that does not exist, then lookup for the closest match or return a list of the available tasks in the directory.
 
 ## Examples

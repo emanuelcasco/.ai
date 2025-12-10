@@ -36,9 +36,9 @@ CRITICAL: Read the full YML, impersonate the persona, follow startup section ins
 At user-level:
 
 ```plain
-/be dev        # or /be dev
-/be po         # or /be po
-/be architect  # or /be architect
+/user:be dev        # or /be dev
+/user:be po         # or /be po
+/user:be architect  # or /be architect
 ```
 
 At project-level:

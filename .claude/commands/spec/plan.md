@@ -30,13 +30,13 @@ type: command
 - Process OPEN feedback blocks and mark as ADDRESSED
 - Add detailed implementation phases with self-contained units
 - Define specific steps with file-level actions (ADD/MODIFY/DELETE)
-- Include git diff code snippets where helpful
+- Include code snippets of the changes for the developer to validate each change
 - Each phase must be non-breaking and self-contained
 
 ## Examples
 
 ```plain
-/spec:plan /path/to/spec/20241128120000_user_auth.md
-/spec:plan /path/to/spec/feature_spec.md "Focus on database schema changes"
+/spec:plan /path/to/specs/20241128120000_user_auth.md
+/spec:plan /path/to/specs/feature_spec.md "Focus on database schema changes"
 /spec:plan "Create new e-commerce checkout flow"
 ```

@@ -21,7 +21,7 @@ type: command
    - Context
    - Success Criteria
 3. LEAVE Implementation Notes section empty with feedback blocks in OPEN status
-4. SAVE in `/spec` folder with timestamp naming convention
+4. SAVE in `/specs` folder with timestamp naming convention
 
 ## Instructions
 

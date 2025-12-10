@@ -1,9 +1,9 @@
 ---
-allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*), Bash(gh pr view:*), Bash(gh pr list:*), Bash(gh pr edit:*)
+allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*), Bash(glab mr view:*), Bash(glab mr list:*), Bash(glab mr update:*)
 description: Commit, push, and open a PR/MR
 argument-hint: [--share (on slack), --branch <branch-name>, --issue <issue-url>]
 type: command
-model: claude-4-5-haiku-latest
+model: claude-4-5-haiku
 ---
 
 ## Usage
@@ -34,6 +34,8 @@ model: claude-4-5-haiku-latest
    b. Wait for success to continue.
    c. Don't use any other tools or sub-agents.
 
+6. (If `--share` is specified) Share the merge request in Slack (wait for success to continue)
+
 ## Instructions
 
 - Never commit nor push from master, if you are already on a branch commit and push from that branch unless specified otherwise.
@@ -44,12 +46,12 @@ model: claude-4-5-haiku-latest
 
 - `/ship --share`
   - Creates a new branch based on the current branch, commits the changes, and creates a merge request. Shares the merge request in Slack.
-- `/ship --branch <BRANCH_NAME> --issue <ISSUE_CODE>`
-  - Creates a new branch named `<BRANCH_NAME>`, commits the changes, and creates a merge request for the issue `<ISSUE_CODE>`.
-- `/ship --issue <ISSUE_CODE>`
-  - Creates a new branch based on the current branch and name it `<ISSUE_CODE>`, commits the changes, and creates a merge request for the issue `<ISSUE_CODE>`.
-- `/ship --issue <TASK_BRANCH>`
-  - Creates a new branch based on the current branch and name it `<TASK_BRANCH>`, commits the changes, and creates a merge request for the issue `<TASK_BRANCH>`.
+- `/ship --branch my-branch --issue BLU-2218`
+  - Creates a new branch named `my-branch`, commits the changes, and creates a merge request for the issue `BLU-2218`.
+- `/ship --issue BLU-2218`
+  - Creates a new branch based on the current branch and name it `BLU-2218`, commits the changes, and creates a merge request for the issue `BLU-2218`.
+- `/ship --issue <LINK_LINEAR_TASK>`
+  - Creates a new branch based on the current branch and name it `BLU-2587-key-metrics-panel-shows-incorrect-values-for-project-impact-and-per`, commits the changes, and creates a merge request for the issue `BLU-2587`.
 
 ## Output
 
@@ -58,6 +60,6 @@ MR: <MR_LINK>
 Description: <BRIEF_MR_DESCRIPTION>
 Focus: <BRIEF_MR_FOCUS>
 ^^/CONDITION: has_external_apis^^
-Issue: <LINEAR_ISSUE_LINK>
+Linear Issue: <LINEAR_ISSUE_LINK>
 ^^/CONDITION^^
 ```

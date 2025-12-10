@@ -44,7 +44,7 @@ type: command
 ## Examples
 
 ```plain
-/spec:review /path/to/spec/20241128120000_user_auth.md
-/spec:review /path/to/spec/feature_spec.md "Focus on security considerations"
-/spec:review /path/to/spec/checkout_flow.md "Validate database migration steps"
+/spec:review /path/to/specs/20241128120000_user_auth.md
+/spec:review /path/to/specs/feature_spec.md "Focus on security considerations"
+/spec:review /path/to/specs/checkout_flow.md "Validate database migration steps"
 ```
