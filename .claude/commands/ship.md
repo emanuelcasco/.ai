@@ -3,7 +3,7 @@ allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*
 description: Commit, push, and open a PR/MR
 argument-hint: [--share (on slack), --branch <branch-name>, --issue <issue-url>]
 type: command
-model: claude-4-5-haiku
+model: claude-haiku-4-5
 ---
 
 ## Usage
