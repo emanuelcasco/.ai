@@ -2,6 +2,7 @@
 description: Systematic review and iteration of implementation plans through structured feedback processing.
 argument-hint: [plan_file] [extra_instructions?]
 type: command
+mode: think
 ---
 
 ## Usage

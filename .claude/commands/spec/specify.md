@@ -2,6 +2,8 @@
 description: Create initial specification with objectives only, setting up feedback blocks for detailed planning phase.
 argument-hint: [task_description]
 type: command
+model: claude-opus-4-5
+mode: ultrathink
 ---
 
 ## Usage

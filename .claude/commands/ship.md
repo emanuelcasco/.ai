@@ -1,20 +1,26 @@
 ---
 allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*), Bash(glab mr view:*), Bash(glab mr list:*), Bash(glab mr update:*)
 description: Commit, push, and open a PR/MR
-argument-hint: [--share (on slack), --branch <branch-name>, --issue <issue-url>]
+argument-hint: [--share] [--branch <name>] [--target <name>] [--commit-message <text>] [--mr-title <text>] [--mr-description <text>] [--issue <url>] [--hint <text>] [--model <name>]
 type: command
 model: claude-haiku-4-5
 ---
 
 ## Usage
 
-`ship [--share] [--branch <branch-name>] [--issue <issue-url>]`
+`ship [--share] [--branch <name>] [--target <name>] [--commit-message <text>] [--mr-title <text>] [--mr-description <text>] [--issue <url>] [--hint <text>] [--model <name>]`
 
 ## Variables
 
-- `--share`: Share the merge request in Slack.
-- `--branch <branch-name>`: Branch name to use for the merge request. If not specified, the current branch will be used.
-- `--issue <issue-url>`: Task manager task to use for the merge request. If not specified, the current branch will be used.
+- `--share`: (Optional) Share the PR/MR in Slack after creation.
+- `--branch <name>`: (Optional) Branch name to use. Defaults to current branch.
+- `--target <name>`: (Optional) Target branch for the PR/MR. Defaults to remote default branch.
+- `--commit-message <text>`: (Optional) Commit message to use. If not provided, AI generates it.
+- `--mr-title <text>`: (Optional) Pull/Merge request title. If not provided, AI generates it.
+- `--mr-description <text>`: (Optional) Pull/Merge request description. If not provided, AI generates it.
+- `--issue <url>`: (Optional) Linear issue link to reference in commit and PR/MR.
+- `--hint <text>`: (Optional) Hint passed to the AI assistant for commit and MR preparation.
+- `--model <name>`: (Optional) AI provider to use (default: claude). Supported: claude, gemini, codex.
 
 ## Workflow
 
@@ -23,43 +29,48 @@ model: claude-haiku-4-5
    b. Current git diff (staged and unstaged changes): !`git diff HEAD`
    c. Current branch: !`git branch --show-current`
 
-2. (If necessary) Create a new branch based on the current branch and the user specified branch name (wait for success to continue)
+2. (If `--branch` specified and different from current) Create or checkout the branch
 
-3. Create a single commit with an appropriate message (wait for success to continue)
+3. Stage all changes with `git add -A`
 
-4. Push the branch to origin (wait for success to continue)
+4. Generate commit message and MR details using AI (unless overridden via flags)
 
-5. READ @~/.ai/tasks/create-mr-task.md and @~/.ai/templates/merge-request.tmp.md for instructions, create a pull request.
-   a. Use `gh pr create` or `glab mr create` (depending the project).
-   b. Wait for success to continue.
-   c. Don't use any other tools or sub-agents.
+5. Create commit with message following format: `<type>(<scope>): <description>`
+   - Commit body includes detailed explanation and `Refs: <issue>` when issue is provided
 
-6. (If `--share` is specified) Share the merge request in Slack (wait for success to continue)
+6. Push branch to origin with `-u` flag
+
+7. Create PR/MR with structured description:
+   - Summary section
+   - Related Issues section (if issue provided)
+   - Changes section (bullet points)
+   - Additional Notes section (if applicable)
+   - Evidences section (if applicable)
+   - Checklist (code guidelines, documentation, tests)
+
+8. (If `--share` specified) Share the PR/MR to Slack
 
 ## Instructions
 
-- Never commit nor push from master, if you are already on a branch commit and push from that branch unless specified otherwise.
-- Do not use any other tools or do anything else.
-- Do not send any other text or messages besides these tool calls.
+- Never commit nor push from master/main unless explicitly specified.
+- If no staged changes detected, abort with error.
+- If no remote 'origin' configured, create commit locally and skip push/PR creation.
+- Commit message types: feat, fix, docs, style, refactor, perf, test, chore.
 
 ## Examples
 
 - `/ship --share`
-  - Creates a new branch based on the current branch, commits the changes, and creates a merge request. Shares the merge request in Slack.
-- `/ship --branch my-branch --issue BLU-2218`
-  - Creates a new branch named `my-branch`, commits the changes, and creates a merge request for the issue `BLU-2218`.
-- `/ship --issue BLU-2218`
-  - Creates a new branch based on the current branch and name it `BLU-2218`, commits the changes, and creates a merge request for the issue `BLU-2218`.
-- `/ship --issue <LINK_LINEAR_TASK>`
-  - Creates a new branch based on the current branch and name it `BLU-2587-key-metrics-panel-shows-incorrect-values-for-project-impact-and-per`, commits the changes, and creates a merge request for the issue `BLU-2587`.
+  - Commits staged changes, pushes, creates PR/MR with AI-generated messages, shares to Slack.
+- `/ship --branch my-branch --issue https://linear.app/team/issue/BLU-2218`
+  - Checks out `my-branch`, commits, pushes, creates PR/MR referencing the Linear issue.
+- `/ship --hint "Focus on the new validation logic"`
+  - Uses the hint to guide AI in generating more relevant commit/PR messages.
+- `/ship --commit-message "fix: resolve auth timeout" --mr-title "fix: BLU-123 auth timeout"`
+  - Uses provided commit message and MR title instead of AI generation.
 
 ## Output
 
 ```plain
 MR: <MR_LINK>
-Description: <BRIEF_MR_DESCRIPTION>
-Focus: <BRIEF_MR_FOCUS>
-^^/CONDITION: has_external_apis^^
-Linear Issue: <LINEAR_ISSUE_LINK>
-^^/CONDITION^^
+Title: <MR_TITLE>
 ```

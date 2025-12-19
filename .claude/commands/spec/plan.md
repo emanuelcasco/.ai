@@ -2,6 +2,8 @@
 description: Complete implementation plan with detailed phases and steps, processing feedback blocks from specification phase.
 argument-hint: [plan_file] [extra_instructions?]
 type: command
+model: claude-opus-4-5
+mode: ultrathink
 ---
 
 ## Usage

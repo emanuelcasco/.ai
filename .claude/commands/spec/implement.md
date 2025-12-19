@@ -2,6 +2,7 @@
 description: Execute implementation plan with validation, maintaining traceability to original specification.
 argument-hint: [plan_file] [extra_instructions?]
 type: command
+model: claude-sonnet-4-5
 ---
 
 ## Usage
@@ -17,11 +18,16 @@ type: command
 1. READ documents in parallel:
    1.1. Use existing `@~/.ai/tasks/execute-implementation-plan-task.md` in **Review Mode**
    1.2. READ existing implementation plan from $PLAN_FILE
-2. EXECUTE phases sequentially as self-contained units
-3. FOLLOW step-by-step instructions with file-level actions
-4. VALIDATE implementation against acceptance criteria
-5. MAINTAIN code quality and testing standards
-6. DOCUMENT implementation decisions and changes
+2. DETECT change type from plan content or file path:
+   - Bug fix: Root cause analysis present, smaller scope
+   - Greenfield: New architecture, no existing code
+   - Brownfield: Legacy context, migration strategy present
+3. EXECUTE phases sequentially as self-contained units
+4. APPLY type-specific implementation approach
+5. FOLLOW step-by-step instructions with file-level actions
+6. VALIDATE implementation against acceptance criteria
+7. MAINTAIN code quality and testing standards
+8. DOCUMENT implementation decisions and changes
 
 ## Instructions
 
@@ -31,17 +37,44 @@ type: command
 - Continuous validation against original objectives
 - Test-driven development aligned with success criteria
 
+**Type-Specific Implementation:**
+
+### Bug Fix Implementation
+- START with regression test that reproduces the bug
+- VERIFY test fails before fix
+- IMPLEMENT minimal fix targeting root cause
+- VERIFY test passes after fix
+- CHECK no side effects in related functionality
+- AVOID over-engineering or scope creep
+
+### Greenfield Implementation
+- FOLLOW architecture decisions from plan
+- ESTABLISH test coverage from start (target >80%)
+- CREATE documentation as you build
+- SET UP monitoring/logging early
+- VALIDATE against design patterns chosen
+
+### Brownfield Implementation
+- VERIFY existing behavior before changes
+- IMPLEMENT behind feature flags when possible
+- MAINTAIN backward compatibility (if required)
+- TEST both old and new code paths
+- PLAN for gradual rollout
+- DOCUMENT migration strategy
+- SCHEDULE legacy code cleanup
+
 **Gate 4 Validation (Implementation):**
 - Code meets all acceptance criteria from spec
 - Tests validate spec requirements (not just code)
 - No architectural drift from approved plan
 - Implementation maintains traceability to original requirements
 - Documentation reflects actual implementation
+- Type-specific checks passed (see /spec:validate)
 
 ## Examples
 
 ```plain
-/spec:implement /path/to/specs/20241128120000_user_auth.md
-/spec:implement /path/to/specs/feature_spec.md "Use TypeScript strict mode"
-/spec:implement /path/to/specs/checkout_flow.md "Focus on error handling"
+/spec:implement /path/to/specs/bugfix/20241128_fix_login_timeout.md
+/spec:implement /path/to/specs/greenfield/20241128_user_dashboard.md "Use TypeScript strict mode"
+/spec:implement /path/to/specs/brownfield/20241128_migrate_payment_api.md "Enable feature flag"
 ```
