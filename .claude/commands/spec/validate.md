@@ -1,5 +1,5 @@
 ---
-description: Validate implementation against spec requirements and verify system health (Gate 5).
+description: Validate implementation against spec requirements and verify system health
 argument-hint: [plan_file] [validation_scope?]
 type: command
 model: claude-sonnet-4-5
