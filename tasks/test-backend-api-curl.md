@@ -32,8 +32,9 @@ curl -s -X POST '<base_url>/auth/login' -H 'Content-Type: application/json' -d '
 ### 3. Construct and Execute cURL Command
 
 - Build the cURL command following the correct syntax (see Instructions).
-- Execute and capture the response.
-- Parse with jq to extract relevant fields.
+- **First, inspect raw response** to verify it's valid JSON: `curl -s "..." | head -100`
+- If response is valid JSON, parse with jq to extract relevant fields.
+- If response is not JSON (404, HTML, empty), debug before proceeding.
 
 ### 4. Validate and Report Results
 
@@ -99,11 +100,60 @@ jq '.items[] | select(.status == "active")'
 jq 'keys'
 ```
 
+### Preventing jq Parse Errors
+
+**CRITICAL**: The error `jq: parse error: Invalid numeric literal` means jq received non-JSON content. **Always validate responses before piping to jq.**
+
+#### Rule 1: Inspect raw response first
+
+```bash
+# ALWAYS do this before complex jq parsing
+curl -s "http://..." -H "Authorization: Bearer <token>" | head -100
+
+# Only after confirming valid JSON, use jq
+curl -s "http://..." -H "Authorization: Bearer <token>" | jq '.'
+```
+
+#### Rule 2: Check for common non-JSON responses
+
+| Response Pattern | Likely Cause |
+|------------------|--------------|
+| `{"errors":[],"internal_code":"Not Found"}` | Wrong endpoint path or invalid ID |
+| `<!DOCTYPE html>` | Server error page, wrong port, or auth redirect |
+| `Unauthorized` | Token expired or malformed |
+| Empty response | Server not running or network issue |
+
+#### Rule 3: Verify endpoint paths
+
+Many APIs have multiple path patterns for the same resource:
+
+```bash
+# Company-scoped (may not work for all resources)
+/v3/resource/:companyId/items/:itemId
+
+# Site-scoped (often required)
+/v3/resource/:companyId/sites/:siteId/items/:itemId
+```
+
+If you get 404, try the alternative path pattern.
+
+#### Rule 4: Use simple, inline commands
+
+```bash
+# GOOD: All values inline, single command
+curl -s "http://localhost:8081/v3/resource/company-123/items/456" -H "Authorization: Bearer eyJ..." | jq '.field'
+
+# BAD: Variable expansion can cause shell parsing issues
+TOKEN="eyJ..."
+curl -s "http://..." -H "Authorization: Bearer $TOKEN" | jq '.'
+```
+
 ### Error Handling
 
 - If response is not valid JSON, check for HTML error pages or server issues.
-- If `jq: parse error`, inspect raw response first: `curl -s "..." | head -100`
+- If `jq: parse error`, **stop and inspect raw response**: `curl -s "..." | head -100`
 - If `Unauthorized`, verify token is valid and correctly passed.
+- If `Not Found`, verify the endpoint path (site-scoped vs company-scoped).
 
 ## Success Criteria
 
