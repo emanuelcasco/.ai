@@ -1,0 +1,21 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.29",
+  "base_commit_sha": "4d539e18f11bd1e65818df414128f2427a68c176",
+  "prompts": {
+    "6d9e21cab607613f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "901e12fb-8fef-4869-869e-55bcc09b49a3",
+        "model": "claude-opus-4-5-20251101"
+      },
+      "human_author": "Emanuel Casco <cascoemanuel@gmail.com>",
+      "messages": [],
+      "total_additions": 134,
+      "total_deletions": 11,
+      "accepted_lines": 132,
+      "overriden_lines": 0
+    }
+  }
+}
