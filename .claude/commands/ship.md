@@ -29,7 +29,7 @@ model: claude-haiku-4-5
    b. Current git diff (staged and unstaged changes): !`git diff HEAD`
    c. Current branch: !`git branch --show-current`
 
-2. (If `--branch` specified and different from current) Create or checkout the branch
+2. (If `--branch` specified and different from current, the same with `--issue` as we need to use a branch that represents the issue we are working on) Create or checkout the branch. NEVER commit nor push on `master` or `main`.
 
 3. Stage all changes with `git add -A`
 

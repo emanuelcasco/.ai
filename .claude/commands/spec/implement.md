@@ -15,6 +15,7 @@ model: claude-sonnet-4-5
 - $EXTRA_INSTRUCTIONS: Additional context or specific execution guidance (optional).
 
 ## Workflow
+
 1. READ documents in parallel:
    1.1. Use existing `@~/.ai/tasks/execute-implementation-plan-task.md` in **Review Mode**
    1.2. READ existing implementation plan from $PLAN_FILE
@@ -31,15 +32,17 @@ model: claude-sonnet-4-5
 
 ## Instructions
 
-**Execution Approach:**
+### Execution Approach
+
 - Each phase must be completed without breaking the system
 - Steps specify exact file changes (ADD/MODIFY/DELETE/etc.)
 - Continuous validation against original objectives
 - Test-driven development aligned with success criteria
 
-**Type-Specific Implementation:**
+### Type-Specific Implementation
 
-### Bug Fix Implementation
+**Bug Fix Implementation**
+
 - START with regression test that reproduces the bug
 - VERIFY test fails before fix
 - IMPLEMENT minimal fix targeting root cause
@@ -47,14 +50,16 @@ model: claude-sonnet-4-5
 - CHECK no side effects in related functionality
 - AVOID over-engineering or scope creep
 
-### Greenfield Implementation
+**Greenfield Implementation**
+
 - FOLLOW architecture decisions from plan
 - ESTABLISH test coverage from start (target >80%)
 - CREATE documentation as you build
 - SET UP monitoring/logging early
 - VALIDATE against design patterns chosen
 
-### Brownfield Implementation
+**Brownfield Implementation**
+
 - VERIFY existing behavior before changes
 - IMPLEMENT behind feature flags when possible
 - MAINTAIN backward compatibility (if required)
@@ -63,7 +68,8 @@ model: claude-sonnet-4-5
 - DOCUMENT migration strategy
 - SCHEDULE legacy code cleanup
 
-**Gate 4 Validation (Implementation):**
+### Implementation
+
 - Code meets all acceptance criteria from spec
 - Tests validate spec requirements (not just code)
 - No architectural drift from approved plan
