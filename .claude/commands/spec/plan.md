@@ -35,6 +35,25 @@ mode: ultrathink
 - Include code snippets of the changes for the developer to validate each change
 - Each phase must be non-breaking and self-contained
 
+## Output Format
+
+After completing the plan, ALWAYS output a summary with:
+
+1. **File path** to the spec
+2. **Phase summary table** showing all phases at a glance:
+
+```markdown
+| Phase | Layer    | Change                                      |
+|-------|----------|---------------------------------------------|
+| 1     | Backend  | Repository - add `siteId` filter to query   |
+| 2     | Backend  | Service - pass `siteId` through             |
+| 3     | Frontend | `useMetricsCatalog` - add to InputArgs      |
+| ...   | ...      | ...                                         |
+```
+
+3. **Key Decisions** - bullet list of resolved feedback blocks
+4. **Next steps prompt** - ask if ready to implement
+
 ## Examples
 
 ```plain
