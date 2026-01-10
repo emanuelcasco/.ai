@@ -29,9 +29,9 @@
     ]
   },
   "statusLine": {
-    "type": "command",
-    "command": "npx -y ccusage statusline --context-low-threshold 30 --context-medium-threshold 60",
-    "padding": 0
+    "command": "~/.claude/statusline.sh",
+    "padding": 0,
+    "type": "command"
   },
   "includeCoAuthoredBy": false
 }
