@@ -1,18 +1,17 @@
 ---
 allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*), Bash(glab mr view:*), Bash(glab mr list:*), Bash(glab mr update:*)
 description: Commit, push, and open a PR/MR
-argument-hint: [--share] [--branch <name>] [--target <name>] [--commit-message <text>] [--mr-title <text>] [--mr-description <text>] [--issue <url>] [--hint <text>] [--model <name>]
+argument-hint: [--branch <name>] [--target <name>] [--commit-message <text>] [--mr-title <text>] [--mr-description <text>] [--issue <url>] [--hint <text>] [--model <name>]
 type: command
 model: claude-haiku-4-5
 ---
 
 ## Usage
 
-`ship [--share] [--branch <name>] [--target <name>] [--commit-message <text>] [--mr-title <text>] [--mr-description <text>] [--issue <url>] [--hint <text>] [--model <name>]`
+`ship [--branch <name>] [--target <name>] [--commit-message <text>] [--mr-title <text>] [--mr-description <text>] [--issue <url>] [--hint <text>] [--model <name>]`
 
 ## Variables
 
-- `--share`: (Optional) Share the PR/MR in Slack after creation.
 - `--branch <name>`: (Optional) Branch name to use. Defaults to current branch.
 - `--target <name>`: (Optional) Target branch for the PR/MR. Defaults to remote default branch.
 - `--commit-message <text>`: (Optional) Commit message to use. If not provided, AI generates it.
@@ -36,19 +35,19 @@ model: claude-haiku-4-5
 4. Generate commit message and MR details using AI (unless overridden via flags)
 
 5. Create commit with message following format: `<type>(<scope>): <description>`
+
    - Commit body includes detailed explanation and `Refs: <issue>` when issue is provided
 
 6. Push branch to origin with `-u` flag
 
 7. Create PR/MR with structured description:
+
    - Summary section
    - Related Issues section (if issue provided)
    - Changes section (bullet points)
    - Additional Notes section (if applicable)
    - Evidences section (if applicable)
    - Checklist (code guidelines, documentation, tests)
-
-8. (If `--share` specified) Share the PR/MR to Slack
 
 ## Instructions
 
@@ -59,8 +58,6 @@ model: claude-haiku-4-5
 
 ## Examples
 
-- `/ship --share`
-  - Commits staged changes, pushes, creates PR/MR with AI-generated messages, shares to Slack.
 - `/ship --branch my-branch --issue https://linear.app/team/issue/BLU-2218`
   - Checks out `my-branch`, commits, pushes, creates PR/MR referencing the Linear issue.
 - `/ship --hint "Focus on the new validation logic"`

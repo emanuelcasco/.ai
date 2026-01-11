@@ -27,6 +27,24 @@ TOTAL_USED=$(echo "$input" | jq -r '
 CTX_PERCENT=$((CTX_SIZE > 0 ? TOTAL_USED * 100 / CTX_SIZE : 0))
 CTX_PERCENT=$((CTX_PERCENT > 100 ? 100 : CTX_PERCENT < 0 ? 0 : CTX_PERCENT))
 
+# Token consumption
+INPUT_TOKENS=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
+OUTPUT_TOKENS=$(echo "$input" | jq -r '.context_window.total_output_tokens // 0')
+
+format_tokens() {
+  local n=$1
+  if (( n >= 1000000 )); then
+    printf "%.1fM" "$(echo "scale=1; $n / 1000000" | bc)"
+  elif (( n >= 1000 )); then
+    printf "%.1fK" "$(echo "scale=1; $n / 1000" | bc)"
+  else
+    printf "%d" "$n"
+  fi
+}
+
+INPUT_FMT=$(format_tokens "$INPUT_TOKENS")
+OUTPUT_FMT=$(format_tokens "$OUTPUT_TOKENS")
+
 # Git branch
 BRANCH=$(git branch --show-current 2>/dev/null)
 [[ -n "$BRANCH" && -n $(git status --porcelain 2>/dev/null) ]] && BRANCH+="*"
@@ -55,5 +73,6 @@ LINE+="${SEP}${ACCENT}📁 ${DIR_NAME}${NC}"
 [[ -n "$BRANCH" ]] && LINE+="${SEP}${SECONDARY}⎇ ${BRANCH}${NC}"
 LINE+="${SEP}${SUCCESS}+${ADDED}${NC} ${ERROR}-${REMOVED}${NC}"
 LINE+="${SEP}${MUTED}ctx${NC} ${BAR} ${MUTED}${CTX_PERCENT}%${NC}"
+LINE+="${SEP}${SECONDARY}↑${NC} ${INPUT_FMT}  ${PURPLE}↓${NC} ${OUTPUT_FMT}"
 
 echo -e "$LINE"
