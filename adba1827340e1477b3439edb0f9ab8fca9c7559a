@@ -1,0 +1,23 @@
+.claude/commands/spec/amend.md
+  310b0eebdb88aaa2 2,11,15,82,127,132,148,160,163,166,180-181,183-184,186-187,189-190
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.31",
+  "base_commit_sha": "adba1827340e1477b3439edb0f9ab8fca9c7559a",
+  "prompts": {
+    "310b0eebdb88aaa2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e43ded41-9340-408d-b779-45e6f391ed89",
+        "model": "claude-opus-4-5-20251101"
+      },
+      "human_author": "Emanuel Casco <cascoemanuel@gmail.com>",
+      "messages": [],
+      "total_additions": 198,
+      "total_deletions": 18,
+      "accepted_lines": 198,
+      "overriden_lines": 0
+    }
+  }
+}
