@@ -1,0 +1,23 @@
+tasks/create-implementation-plan-task.md
+  7f4348d4df3eba43 100-121,123-127,152
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.31",
+  "base_commit_sha": "79fa87a61050cd776037ab60d03e2bf1976afa8f",
+  "prompts": {
+    "7f4348d4df3eba43": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f3b719c8-83bc-495c-9966-8927036ba866",
+        "model": "claude-opus-4-5-20251101"
+      },
+      "human_author": "Emanuel Casco <cascoemanuel@gmail.com>",
+      "messages": [],
+      "total_additions": 28,
+      "total_deletions": 1,
+      "accepted_lines": 28,
+      "overriden_lines": 0
+    }
+  }
+}
