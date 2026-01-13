@@ -24,8 +24,13 @@ mode: ultrathink
    - ADD Implementation Notes with detailed phases and steps
 3. **If no file provided**:
    - CREATE complete implementation plan from scratch
-4. MARK feedback blocks as ADDRESSED
-5. MAINTAIN traceability to original objectives
+4. **Before marking feedback as ADDRESSED**, surface OPEN questions:
+   - Classify: user-decision vs AI-resolvable
+   - Use AskUserQuestion for user-decision questions (group 2-4 per round)
+   - Answer AI-resolvable questions directly
+   - Incorporate responses into plan
+5. MARK feedback blocks as ADDRESSED after resolution
+6. MAINTAIN traceability to original objectives
 
 ## Instructions
 
@@ -35,6 +40,17 @@ mode: ultrathink
 - Include code snippets of the changes for the developer to validate each change
 - Each phase must be non-breaking and self-contained
 
+**Feedback Resolution Guidelines:**
+
+Before marking feedback blocks as ADDRESSED, process ALL OPEN questions:
+
+- For each OPEN feedback block, classify questions:
+  - **User questions**: Require user decision (architecture, trade-offs, preferences, ambiguities) → use AskUserQuestion
+  - **AI-resolvable**: Technical/factual questions answerable from codebase → answer directly and mark ADDRESSED
+- Group user questions by topic area (2-4 per AskUserQuestion round)
+- Mark ADDRESSED only after resolved (user response OR AI answer)
+- No OPEN block should be silently skipped
+
 ## Output Format
 
 After completing the plan, ALWAYS output a summary with:
@@ -43,12 +59,12 @@ After completing the plan, ALWAYS output a summary with:
 2. **Phase summary table** showing all phases at a glance:
 
 ```markdown
-| Phase | Layer    | Change                                      |
-|-------|----------|---------------------------------------------|
-| 1     | Backend  | Repository - add `siteId` filter to query   |
-| 2     | Backend  | Service - pass `siteId` through             |
-| 3     | Frontend | `useMetricsCatalog` - add to InputArgs      |
-| ...   | ...      | ...                                         |
+| Phase | Layer    | Change                                    |
+| ----- | -------- | ----------------------------------------- |
+| 1     | Backend  | Repository - add `siteId` filter to query |
+| 2     | Backend  | Service - pass `siteId` through           |
+| 3     | Frontend | `useMetricsCatalog` - add to InputArgs    |
+| ...   | ...      | ...                                       |
 ```
 
 3. **Key Decisions** - bullet list of resolved feedback blocks

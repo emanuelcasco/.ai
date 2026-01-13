@@ -24,6 +24,12 @@ mode: think
 4. ADD new feedback blocks for unresolved issues or concerns
 5. UPDATE plan content based on review findings
 6. MARK incorporated feedback as RESOLVED
+7. SURFACE OPEN feedback blocks using AskUserQuestion tool:
+   - Classify questions: user-decision vs AI-resolvable
+   - Group related user questions (2-4 per round)
+   - Answer AI-resolvable questions directly and mark ADDRESSED
+   - Present user questions with context about why they matter
+   - Accept "defer" or "I'll answer later" as valid responses
 
 ## Instructions
 
@@ -41,6 +47,19 @@ mode: think
 - Update existing feedback blocks with new insights
 - Mark incorporated feedback as RESOLVED
 - Remove RESOLVED blocks unless user requests retention
+
+**Feedback Resolution Guidelines:**
+
+After adding new feedback blocks, process ALL OPEN questions:
+
+- For each OPEN feedback block, classify questions:
+  - **User questions**: Require user decision (architecture, trade-offs, preferences, ambiguities) → use AskUserQuestion
+  - **AI-resolvable**: Technical/factual questions answerable from codebase → answer directly and mark ADDRESSED
+- Group user questions by topic area (2-4 per AskUserQuestion round)
+- Provide brief context for why each question matters
+- Mark blocks ADDRESSED once resolved (user response OR AI answer)
+- Accept "I'll answer later" as valid response (keep OPEN)
+- No OPEN block should remain silently unaddressed
 
 ## Examples
 

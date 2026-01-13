@@ -97,7 +97,34 @@ For Review Mode:
 - Mark incorporated feedback as RESOLVED
 - Remove RESOLVED blocks unless user requests retention
 
-### 7. Final Presentation
+### 7. Feedback Surfacing
+
+After creating or updating feedback blocks, surface ALL questions to ensure nothing remains silently OPEN.
+
+**Question Classification:**
+
+For each OPEN feedback block, classify each question:
+
+- **User questions**: Require user decision (architecture choices, trade-offs, preferences, ambiguous requirements, goal clarity) → use AskUserQuestion tool
+- **AI-resolvable**: Technical/factual questions AI can answer from codebase context → answer directly and mark ADDRESSED
+
+**Surfacing Guidelines:**
+
+- Process ALL OPEN feedback blocks—no question should remain silently unaddressed
+- Group related user questions by topic area (2-4 questions per AskUserQuestion round)
+- Provide brief context for why each question matters
+- Accept "I'll answer later" or "defer" as valid responses (keep OPEN)
+- Mark blocks ADDRESSED only after resolved (user response OR AI answer)
+
+**AskUserQuestion Format:**
+
+When surfacing questions, use the AskUserQuestion tool with:
+
+- Clear, specific questions (not yes/no when alternatives are needed)
+- 2-4 options where applicable
+- Brief descriptions explaining implications of each choice
+
+### 8. Final Presentation
 
 - Present clean, formatted content only
 - Complete sections without truncation (unless Specify Mode)
@@ -122,4 +149,5 @@ For Review Mode:
 - [ ] **Success Criteria**: Clear, measurable completion outcomes
 - [ ] **Pair Programming Ready**: Clear instructions for development partner
 - [ ] **Feedback Blocks**: Properly formatted with correct status (OPEN/ADDRESSED/RESOLVED)
+- [ ] **Feedback Surfacing**: All OPEN questions surfaced via AskUserQuestion or answered by AI—no silent OPEN blocks
 - [ ] **Mode Compliance**: Specify Mode stops before Implementation Notes, Plan Mode completes all sections

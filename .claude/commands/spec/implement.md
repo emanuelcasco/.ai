@@ -26,9 +26,13 @@ model: claude-sonnet-4-5
 3. EXECUTE phases sequentially as self-contained units
 4. APPLY type-specific implementation approach
 5. FOLLOW step-by-step instructions with file-level actions
-6. VALIDATE implementation against acceptance criteria
-7. MAINTAIN code quality and testing standards
-8. DOCUMENT implementation decisions and changes
+6. **MARK progress in plan file as you complete each step**:
+   - Update `- [ ]` to `- [x]` for completed steps
+   - Update phase status when all steps in phase are done
+   - Keep plan file as live progress tracker
+7. VALIDATE implementation against acceptance criteria
+8. MAINTAIN code quality and testing standards
+9. DOCUMENT implementation decisions and changes
 
 ## Instructions
 
@@ -38,6 +42,14 @@ model: claude-sonnet-4-5
 - Steps specify exact file changes (ADD/MODIFY/DELETE/etc.)
 - Continuous validation against original objectives
 - Test-driven development aligned with success criteria
+
+### Progress Tracking
+
+- **Mark steps complete immediately** after finishing each step—don't batch
+- Update the plan file (`$PLAN_FILE`) with `- [x]` for completed steps
+- Add brief notes to steps if implementation deviated from plan
+- Update Mid-Level Objectives checkboxes when corresponding phases complete
+- This keeps the plan file as a live progress document
 
 ### Type-Specific Implementation
 

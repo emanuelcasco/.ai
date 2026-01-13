@@ -24,6 +24,11 @@ mode: ultrathink
    - Success Criteria
 3. LEAVE Implementation Notes section empty with feedback blocks in OPEN status
 4. SAVE in `/specs` folder with timestamp naming convention
+5. SURFACE key questions from OPEN feedback blocks:
+   - Classify: user-decision vs AI-resolvable
+   - Use AskUserQuestion for user-decision questions (focus on goal clarity, requirements)
+   - Answer AI-resolvable questions directly and mark ADDRESSED
+   - Accept partial answers
 
 ## Instructions
 
@@ -31,6 +36,18 @@ mode: ultrathink
 - Leave feedback blocks as OPEN for detailed planning phase
 - Creates partial implementation plan for ideation
 - Use timestamp naming: `yyyymmddhhmmdd_{{name_in_snake_case}}.md`
+
+**Feedback Resolution Guidelines:**
+
+After creating the specification with OPEN feedback blocks, process ALL questions:
+
+- For each OPEN feedback block, classify questions:
+  - **User questions**: Require user decision (goal clarity, requirements, constraints, preferences) → use AskUserQuestion
+  - **AI-resolvable**: Technical/factual questions answerable from context → answer directly and mark ADDRESSED
+- Group user questions by topic area (2-4 per AskUserQuestion round)
+- Focus on: main goal clarity, key requirements, known constraints
+- Mark ADDRESSED once resolved; keep truly unanswerable questions OPEN for /spec:clarify
+- No OPEN block should remain silently unaddressed
 
 ## Examples
 
