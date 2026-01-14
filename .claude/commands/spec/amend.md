@@ -24,13 +24,14 @@ When implementation diverges from the original plan (bug fixes, improvements, di
 
 ### 1. Gather Context
 
-Run these commands in parallel to understand the current state:
+Run these steps to understand the current state:
 
 a. Read the implementation plan from `$PLAN_FILE`
-b. Detect base branch: !`git remote show origin | grep 'HEAD branch'` (use `--base` if provided)
-c. Get actual diff against base: !`git diff <base>...HEAD`
-d. List changed files: !`git diff --name-only <base>...HEAD`
-e. Get commit history on branch: !`git log <base>..HEAD --oneline`
+b. Determine base branch: If `--base` was provided, use that value. Otherwise, detect default branch by running `git remote show origin | grep 'HEAD branch'` and extracting the branch name (typically `main` or `master`)
+c. Using the determined base branch, run these git commands (replacing BASE with the actual branch name):
+   - `git diff BASE...HEAD` - Get actual diff against base
+   - `git diff --name-only BASE...HEAD` - List changed files
+   - `git log BASE..HEAD --oneline` - Get commit history on branch
 
 ### 2. Analyze Divergence
 
