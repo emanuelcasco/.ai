@@ -31,6 +31,34 @@ CTX_PERCENT=$((CTX_PERCENT > 100 ? 100 : CTX_PERCENT < 0 ? 0 : CTX_PERCENT))
 INPUT_TOKENS=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
 OUTPUT_TOKENS=$(echo "$input" | jq -r '.context_window.total_output_tokens // 0')
 
+# Pricing per 1M tokens (input/output)
+case "$MODEL" in
+  *Opus*)   INPUT_PRICE=15;   OUTPUT_PRICE=75 ;;
+  *Sonnet*) INPUT_PRICE=3;    OUTPUT_PRICE=15 ;;
+  *Haiku*)  INPUT_PRICE=0.80; OUTPUT_PRICE=4 ;;
+  *)        INPUT_PRICE=3;    OUTPUT_PRICE=15 ;; # default to Sonnet
+esac
+
+# Calculate costs
+INPUT_COST=$(echo "scale=4; $INPUT_TOKENS * $INPUT_PRICE / 1000000" | bc)
+OUTPUT_COST=$(echo "scale=4; $OUTPUT_TOKENS * $OUTPUT_PRICE / 1000000" | bc)
+
+format_cost() {
+  local cost=$1
+  # Remove leading zero for bc output like ".0012"
+  cost=$(echo "$cost" | sed 's/^\./0./')
+  if (( $(echo "$cost >= 1" | bc -l) )); then
+    printf "\$%.2f" "$cost"
+  elif (( $(echo "$cost >= 0.01" | bc -l) )); then
+    printf "\$%.2f" "$cost"
+  else
+    printf "\$%.3f" "$cost"
+  fi
+}
+
+INPUT_COST_FMT=$(format_cost "$INPUT_COST")
+OUTPUT_COST_FMT=$(format_cost "$OUTPUT_COST")
+
 format_tokens() {
   local n=$1
   if (( n >= 1000000 )); then
@@ -73,6 +101,6 @@ LINE+="${SEP}${ACCENT}📁 ${DIR_NAME}${NC}"
 [[ -n "$BRANCH" ]] && LINE+="${SEP}${SECONDARY}⎇ ${BRANCH}${NC}"
 LINE+="${SEP}${SUCCESS}+${ADDED}${NC} ${ERROR}-${REMOVED}${NC}"
 LINE+="${SEP}${MUTED}ctx${NC} ${BAR} ${MUTED}${CTX_PERCENT}%${NC}"
-LINE+="${SEP}${SECONDARY}↑${NC} ${INPUT_FMT}  ${PURPLE}↓${NC} ${OUTPUT_FMT}"
+LINE+="${SEP}${SECONDARY}↑${NC}${INPUT_FMT}${MUTED}(${INPUT_COST_FMT})${NC}  ${PURPLE}↓${NC}${OUTPUT_FMT}${MUTED}(${OUTPUT_COST_FMT})${NC}"
 
 echo -e "$LINE"

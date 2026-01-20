@@ -35,13 +35,11 @@ model: claude-haiku-4-5
 4. Generate commit message and MR details using AI (unless overridden via flags)
 
 5. Create commit with message following format: `<type>(<scope>): <description>`
-
    - Commit body includes detailed explanation and `Refs: <issue>` when issue is provided
 
 6. Push branch to origin with `-u` flag
 
 7. Create PR/MR with structured description:
-
    - Summary section
    - Related Issues section (if issue provided)
    - Changes section (bullet points)
@@ -55,6 +53,12 @@ model: claude-haiku-4-5
 - If no staged changes detected, abort with error.
 - If no remote 'origin' configured, create commit locally and skip push/PR creation.
 - Commit message types: feat, fix, docs, style, refactor, perf, test, chore.
+
+  ## Git Rules
+  - **NEVER** commit directly to `main` or `master`
+  - **NEVER** push to `main` or `master`
+  - Always create a feature branch before committing
+  - Always use PRs/MRs to merge changes into main
 
 ## Examples
 
