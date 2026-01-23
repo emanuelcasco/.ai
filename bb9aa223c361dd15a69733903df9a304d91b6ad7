@@ -1,0 +1,36 @@
+.claude/statusline.sh
+  fc83b460db0ba820 82,121-125,134
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.37",
+  "base_commit_sha": "bb9aa223c361dd15a69733903df9a304d91b6ad7",
+  "prompts": {
+    "244e759dd9d1ebf9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "446b41af-340d-4328-9518-9bf96d32322d",
+        "model": "claude-opus-4-5-20251101"
+      },
+      "human_author": "Emanuel Casco <cascoemanuel@gmail.com>",
+      "messages": [],
+      "total_additions": 534,
+      "total_deletions": 0,
+      "accepted_lines": 528,
+      "overriden_lines": 6
+    },
+    "fc83b460db0ba820": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01080e6c-5160-4520-9425-717043fc7ba2",
+        "model": "claude-opus-4-5-20251101"
+      },
+      "human_author": "Emanuel Casco <cascoemanuel@gmail.com>",
+      "messages": [],
+      "total_additions": 7,
+      "total_deletions": 9,
+      "accepted_lines": 7,
+      "overriden_lines": 0
+    }
+  }
+}
