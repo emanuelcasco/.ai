@@ -12,55 +12,37 @@ NC='\033[0m'
 
 input=$(cat)
 
-# Parse fields
+# Parse fields directly from JSON (no transcript parsing needed)
 MODEL=$(echo "$input" | jq -r '.model.display_name // "Claude"')
 DIR_NAME=$(basename "$(echo "$input" | jq -r '.workspace.current_dir // "~"')")
 ADDED=$(echo "$input" | jq -r '.cost.total_lines_added // 0')
 REMOVED=$(echo "$input" | jq -r '.cost.total_lines_removed // 0')
 
-# Context usage
-CTX_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
-TOTAL_USED=$(echo "$input" | jq -r '
-  (.context_window.current_usage.input_tokens // 0) +
-  (.context_window.current_usage.cache_creation_input_tokens // 0) +
-  (.context_window.current_usage.cache_read_input_tokens // 0)')
-CTX_PERCENT=$((CTX_SIZE > 0 ? TOTAL_USED * 100 / CTX_SIZE : 0))
-CTX_PERCENT=$((CTX_PERCENT > 100 ? 100 : CTX_PERCENT < 0 ? 0 : CTX_PERCENT))
+# Use pre-calculated total cost
+TOTAL_COST=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
 
-# Token consumption
+# Token counts from JSON
 INPUT_TOKENS=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
 OUTPUT_TOKENS=$(echo "$input" | jq -r '.context_window.total_output_tokens // 0')
+CTX_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
 
-# Pricing per 1M tokens (input/output)
-case "$MODEL" in
-  *Opus*)   INPUT_PRICE=15;   OUTPUT_PRICE=75 ;;
-  *Sonnet*) INPUT_PRICE=3;    OUTPUT_PRICE=15 ;;
-  *Haiku*)  INPUT_PRICE=0.80; OUTPUT_PRICE=4 ;;
-  *)        INPUT_PRICE=3;    OUTPUT_PRICE=15 ;; # default to Sonnet
-esac
-
-# Calculate costs
-INPUT_COST=$(echo "scale=4; $INPUT_TOKENS * $INPUT_PRICE / 1000000" | bc)
-OUTPUT_COST=$(echo "scale=4; $OUTPUT_TOKENS * $OUTPUT_PRICE / 1000000" | bc)
+# Calculate context percentage from total tokens used
+TOTAL_TOKENS=$((INPUT_TOKENS + OUTPUT_TOKENS))
+CTX_PERCENT=$((CTX_SIZE > 0 ? TOTAL_TOKENS * 100 / CTX_SIZE : 0))
+CTX_PERCENT=$((CTX_PERCENT > 100 ? 100 : CTX_PERCENT < 0 ? 0 : CTX_PERCENT))
 
 format_cost() {
   local cost=$1
-  # Remove leading zero for bc output like ".0012"
-  cost=$(echo "$cost" | sed 's/^\./0./')
-  if (( $(echo "$cost >= 1" | bc -l) )); then
-    printf "\$%.2f" "$cost"
-  elif (( $(echo "$cost >= 0.01" | bc -l) )); then
-    printf "\$%.2f" "$cost"
+  if [[ "$cost" == "0" || "$cost" == "null" || -z "$cost" ]]; then
+    echo "\$0.00"
   else
-    printf "\$%.3f" "$cost"
+    printf "\$%.2f" "$cost"
   fi
 }
 
-INPUT_COST_FMT=$(format_cost "$INPUT_COST")
-OUTPUT_COST_FMT=$(format_cost "$OUTPUT_COST")
-
 format_tokens() {
   local n=$1
+  [[ "$n" == "null" || -z "$n" ]] && n=0
   if (( n >= 1000000 )); then
     printf "%.1fM" "$(echo "scale=1; $n / 1000000" | bc)"
   elif (( n >= 1000 )); then
@@ -70,6 +52,7 @@ format_tokens() {
   fi
 }
 
+COST_FMT=$(format_cost "$TOTAL_COST")
 INPUT_FMT=$(format_tokens "$INPUT_TOKENS")
 OUTPUT_FMT=$(format_tokens "$OUTPUT_TOKENS")
 
@@ -92,7 +75,11 @@ if [ "$CTX_PERCENT" -ge 80 ]; then BAR_COLOR="$ERROR"
 elif [ "$CTX_PERCENT" -ge 50 ]; then BAR_COLOR="$ACCENT"
 else BAR_COLOR="$SUCCESS"; fi
 
-BAR="${BAR_COLOR}$(printf '█%.0s' $(seq 1 $FILLED 2>/dev/null))${MUTED}$(printf '░%.0s' $(seq 1 $((BAR_WIDTH - FILLED)) 2>/dev/null))${NC}"
+FILLED_STR=""
+EMPTY_STR=""
+(( FILLED > 0 )) && FILLED_STR=$(printf '█%.0s' $(seq 1 $FILLED))
+(( BAR_WIDTH - FILLED > 0 )) && EMPTY_STR=$(printf '░%.0s' $(seq 1 $((BAR_WIDTH - FILLED))))
+BAR="${BAR_COLOR}${FILLED_STR}${MUTED}${EMPTY_STR}${NC}"
 
 # Build output
 SEP="${MUTED}  ${NC}"
@@ -101,6 +88,6 @@ LINE+="${SEP}${ACCENT}📁 ${DIR_NAME}${NC}"
 [[ -n "$BRANCH" ]] && LINE+="${SEP}${SECONDARY}⎇ ${BRANCH}${NC}"
 LINE+="${SEP}${SUCCESS}+${ADDED}${NC} ${ERROR}-${REMOVED}${NC}"
 LINE+="${SEP}${MUTED}ctx${NC} ${BAR} ${MUTED}${CTX_PERCENT}%${NC}"
-LINE+="${SEP}${SECONDARY}↑${NC}${INPUT_FMT}${MUTED}(${INPUT_COST_FMT})${NC}  ${PURPLE}↓${NC}${OUTPUT_FMT}${MUTED}(${OUTPUT_COST_FMT})${NC}"
+LINE+="${SEP}${SECONDARY}↑${NC}${INPUT_FMT}  ${PURPLE}↓${NC}${OUTPUT_FMT}  ${MUTED}${COST_FMT}${NC}"
 
-echo -e "$LINE"
+echo -e "\033[2m${LINE}\033[0m"
